@@ -13,3 +13,12 @@ def index():
 
     return "<h2>Welcome to MyDiary</h2>"
 
+@app.route('/api/<version>/register', methods=['POST'])
+def register(version):
+    """
+    This end point registers a user
+    :param version: 
+    :return: 
+    """
+    pass
+
