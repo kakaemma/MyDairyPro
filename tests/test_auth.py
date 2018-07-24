@@ -14,3 +14,12 @@ class TestAuthentication(BaseClass):
                                     content_type='application/json',
                                     data=self.empty_reg)
         self.assertIn('Missing or bad parameter submitted', response.data.decode())
+
+
+    def test_registration_with_invalid_email(self):
+        """ Test should return invalid email address"""
+        response = self.client.post('/api/v1/register',
+                                    content_type='application/json',
+                                    data=self.invalid_email)
+        self.assertIn('Unprocessable entity', response.data.decode())
+        self.assertEqual(response.status_code, 422)
