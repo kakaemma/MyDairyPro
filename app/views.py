@@ -1,5 +1,6 @@
 from flask import jsonify, request, render_template
 from app.models import UserModel
+from validate_email import validate_email
 from app import create_app
 
 
@@ -27,24 +28,20 @@ def register(version):
             and 'password' in request.json:
         if request.json['name'] and request.json['email'] \
                 and request.json['password']:
-            user= UserModel(request.json['name'],request.json['email'],
-                            request.json['email'])
-            register_user = user.add_user()
-            if register_user == None:
-                response = jsonify({
-                    'Status': request.json['email']+ \
-                              'successfully registered'
-                }),201
-                return response
-            response = jsonify({
-                'Conflict': 'User already exists'
-            }),409
-            return response
+            if validate_email(request.json['email']):
+                user = UserModel(request.json['name'],
+                                 request.json['email'], request.json['email'])
+                register_user = user.add_user()
+                if register_user == None:
+                    return  message_to_return(201)
+                return message_to_return(409)
+            return message_to_return(422)
+    return message_to_return(400)
 
-    response = jsonify({
-        'Error': 'Missing or bad parameter submitted',
-    }),400
-    return response
+
+
+
+
 
 
 @app.route('/api/<version>/login', methods=['POST'])
@@ -55,4 +52,31 @@ def login(version):
     :return: 
     """
     pass
+
+def message_to_return(status_code):
+    if status_code == 201:
+        response = jsonify({
+            'Status': request.json['email'] + \
+                      'successfully registered'
+        }), 201
+        return response
+    if status_code == 409:
+        response = jsonify({
+            'Conflict': 'User already exists'
+        }), 409
+        return response
+
+    if status_code == 422:
+        response = jsonify({
+            'Error': 'Unprocessable entity'
+        }), 422
+        return response
+
+    if status_code == 400:
+        response = jsonify({
+            'Error': 'Missing or bad parameter submitted',
+        }), 400
+        return response
+
+
 
