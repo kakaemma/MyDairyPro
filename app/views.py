@@ -1,4 +1,5 @@
 from flask import jsonify, request, render_template
+from app.models import UserModel
 from app import create_app
 
 
@@ -23,9 +24,26 @@ def register(version):
     :return: 
     """
     user_data = request.json
-    if 'name' in user_data and 'email' in user_data and 'password' in user_data:
-        pass
-
+    if 'name' in user_data and 'email' in user_data \
+            and 'password' in user_data:
+        user= UserModel(user_data['name'],
+                        user_data['email', user_data['password']])
+        register_user = user.add_user()
+        if register_user == None:
+            response = jsonify({
+                'Email': user_data['email'],
+                'Status': 'successfully registered'
+            }),201
+            return response
+        response = jsonify({
+            'Email': user_data['email'],
+            'Conflict': 'User already exists'
+        }),409
+        return response
+    response = jsonify({
+        'Error': 'Missing or bad parameter submitted',
+    }),400
+    return response
 
 
 @app.route('/api/<version>/register', methods=['POST'])
