@@ -23,7 +23,7 @@ def register(version):
     :param version: 
     :return: 
     """
-    request.get_json()
+    request.get_json(force=True)
     user_data = request.json
     if 'name' in user_data and 'email' in user_data \
             and 'password' in user_data:
