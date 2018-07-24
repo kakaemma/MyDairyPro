@@ -13,6 +13,7 @@ class TestDevelopmentEnvironment(TestCase):
         """ Should return debug is true if debug is enabled"""
         self.assertTrue(app.config['DEBUG'])
 
+
 class TestProductionEnv(TestCase):
     def create_app(self):
         app.config.from_object('instance.config.ProductionEnvironment')
@@ -23,6 +24,7 @@ class TestProductionEnv(TestCase):
         self.assertFalse(app.config['DEBUG'])
         self.assertFalse(app.config['TESTING'])
 
+
 class TestTestingEnv(TestCase):
     def create_app(self):
         app.config.from_object('instance.config.TestingEnvironment')
@@ -32,3 +34,16 @@ class TestTestingEnv(TestCase):
         """ should return true if debug and testing are set to true"""
         self.assertTrue(app.config['DEBUG'])
         self.assertTrue(app.config['TESTING'])
+
+
+class TestStagingEnv(TestCase):
+    def create_app(self):
+        app.config.from_object('instance.config.StagingEnvironment')
+        return app
+
+    def test_app_in_staging_env(self):
+        """ Check if debug is set to true"""
+        self.assertTrue(app.config['DEBUG'])
+
+if __name__ == '__main__':
+    unittest.main()
