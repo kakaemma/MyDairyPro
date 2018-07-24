@@ -10,7 +10,7 @@ class UserModel(object):
         :param email: 
         :param password: 
         """
-        self.user_id = len(UserModel.user) + 1
+        self.user_id = len(UserModel.users) + 1
         self.name = name
         self.email = email
         self.password = password
