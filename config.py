@@ -26,3 +26,11 @@ class ProductionEnvironment(MainConfiguration):
     """ Configurations for production environment"""
     DEBUG = False
     TESTING = False
+
+
+application_config = {
+    'MainConfig': MainConfiguration,
+    'TestingEnv': TestingEnvironment,
+    'DevelopmentEnv': DevelopmentEnvironment,
+    'ProductionEnv': ProductionEnvironment
+}
