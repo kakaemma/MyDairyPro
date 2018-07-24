@@ -23,11 +23,12 @@ def register(version):
     :param version: 
     :return: 
     """
+    request.get_json()
     user_data = request.json
     if 'name' in user_data and 'email' in user_data \
             and 'password' in user_data:
         user= UserModel(user_data['name'],
-                        user_data['email', user_data['password']])
+                        user_data['email'], user_data['password'])
         register_user = user.add_user()
         if register_user == None:
             response = jsonify({
