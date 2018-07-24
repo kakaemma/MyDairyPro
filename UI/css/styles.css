@@ -1,7 +1,9 @@
-ody{
+body{
     font-family: 'Open Sans', sans-serif, arial, verdana;
     font-size: 14px;
     line-height: 1.42857;
+    margin: 0px;
+    margin-bottom: -300px !important;
 
 }
 h1,h2,h3,h4,h5,h6{
@@ -12,9 +14,7 @@ h1,h2,h3,h4,h5,h6{
 h3{
     font-size: 24px;
 }
-li {
-    line-height: 20px;
-}
+
 .pageWrapper{
     min-height: 100%;
 }
@@ -22,6 +22,7 @@ li {
     background-image: linear-gradient(top bottom,#654a86,#534292);
     background-color: #534292;
     height: 100%;
+    margin-bottom:-100px; 
 }
 .container{
     position: relative;
@@ -40,12 +41,12 @@ li {
 .container .loginPanel{
     color: #3f3f44;
 }
-/*************************************** LOGIN STYLES START HERE ********************/
 .loginPanel{
     max-width: 430px;
     margin: 50px auto 20px;
     border-radius: 5px;
     background-color: #fff;
+    padding-top: 20px;
 }
 .loginPanel h3 {
     margin: 0px 0 28;
@@ -101,14 +102,11 @@ form .fieldIcon::after {
     border-radius: 4px;
 }
 #loginField{width: 60% !important;}
-#regformField{
-    padding: 6px 15px;
+.buttonPupple{
+    color: #fff;
+    background-color: #79589f;
 }
-.formField:focus{
-    border: solid 1px #654a86 !important;
-    box-shadow: 0 0 7px #654a86 !important;
-}
-.button{
+.button {
     font-weight: normal;
     border-radius: 5px;
     border: none;
@@ -118,26 +116,7 @@ form .fieldIcon::after {
     margin-bottom: 20px;
     font-size: 18px;
     line-height: 1.33;
-    width: 100%
-}
-#regbtn{
-    width:88% !important;
-    margin: 0 0 0 15px;
-}
-.buttonPupple{
-    color: #fff;
-    background-color: #79589f;
-}
-.errorMsg {
-    background-color: #d64242;
-    border-color: #d64242;
-    color: #FFF;
-}
-.error {
-    padding: 10px;
-    margin-bottom: 20px;
-    border: 1px solid transparent;
-    border-radius: 4px;
+    width: 100%;
 }
 .loginPanel a.panelFooter {
     text-decoration: none;
@@ -160,7 +139,6 @@ form .fieldIcon::after {
     color: #79589f;
     text-decoration: underline;
 }
-<<<<<<< ui_feature_dashboard
 /******************* Register styles end here ******************************************/
 
 /************ Main styles **************/
@@ -253,7 +231,7 @@ form .fieldIcon::after {
 .button_area {
     margin-bottom: 25px;
     height: 40px;
-    padding-left:43%; 
+    padding-left:3%; 
 }
 a.button, button {
     background-color: #79589f;
@@ -427,74 +405,4 @@ table th, td {
  th, td {
     padding: 15px;
     text-align: center;
- }
-/******************************************  LOGIN STYLES END HERE ******************/
-
-/************************** Reigster styles **************************************/
-.register{
-    max-width: 800px;
-    margin: 0 auto;
-
-}
-.registerHeader{
-    padding: 60px 0 35px;
-    position: relative;
-    color:#ffff;
-}
-.registerHeader h2{
-    max-width: 400px;
-    margin: 0 auto;
-    text-align: center;
-    color:#ffffff;
-    text-shadow: 0 1px 0 rgba(0,0,0,0.25);
-}
-.registerContent{
-    height: auto;
-    padding: 10px;
-    position: absolute;
-    margin-right: 10px;
-    border-radius: 5px;
-    text-align: left !important;
-    box-shadow: 0 0 0 1px rgba(0,0,0,0.25), 0 3px 20px 0 rgba(0,0,0,0.15);
-    background-color: #F9F9FB;
-    background-image: url(../images/registerbg.png);
-    background-size: 950px 160px;
-    background-repeat: no-repeat;
-    background-position: top left;
-}
-.registerContent .registerPanel{
-    padding: 40px 73px 20px 40px;
-}
-.registerContent .registerPanel, .registerContent .regSidebar {
-    float: left;
-}
-.smallNotes h3 {
-    line-height: 1.4;
-    margin-bottom: 15px;
-}
-.smallNotes p:not(full-width){
-    max-width: 340px;
-}
-p{
-    margin: 0px;
-    margin-bottom: 30px;
-}
-.registerForm{
-    position: relative;
-    padding: 30px;
-    background: #fff;
-    border-radius: 5px;
-    margin-right: -30px;
-    margin-top: -5px;
-    z-index: 10;
-    box-shadow: 0 0 0 1px rgba(89,105,128,0.1), 0 3px 20px 0 rgba(89,105,128,0.3), 0 1px 2px 0 rgba(0,0,0,0.05);
-}
-.registerForm input[type="text"],
- .registerForm input[type="email"], .registerForm input[type="password"]{
-     height: 34px !important;
- }
-.regfieldHolder{
-    margin-left: 8px;
-    margin-right: 16px;
-    padding-bottom: 10px;
 }
