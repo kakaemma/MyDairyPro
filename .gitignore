@@ -1,3 +1,5 @@
 env/
 .idea/
 .coverage
+app/__pyache__/
+instance/__pyache__/
