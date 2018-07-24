@@ -20,3 +20,9 @@ class TestingEnvironment(MainConfiguration):
 class StagingEnvironment(MainConfiguration):
     """ Configurations for staging environment"""
     DEBUG = True
+
+
+class ProductionEnvironment(MainConfiguration):
+    """ Configurations for production environment"""
+    DEBUG = False
+    TESTING = False
