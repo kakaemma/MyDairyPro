@@ -26,7 +26,7 @@
                         <div class="holder">
                             <div class="diaries">
                                 <div class="button_area">
-                                    <a href="#addentry" class="button button_dash" id="modalbtn" onclick="document.getElementById('myModal').style.display='block'">
+                                    <a href="#addentbry" class="button button_dash" id="modalbtn" onclick="document.getElementById('myModal').style.display='block'">
                                         Add Entry
                                     </a>
                                 </div>
@@ -39,10 +39,11 @@
                                                 Rally 2018 performance from January
                                             </td>
                                             <td>
-                                                <a href=""  class="button table_btn">Update</a>
+                                                <a href="#editdentry"  id="editBtn" class="button table_btn"  onclick="document.getElementById('editModal').style.display='block'"
+                                                >Update</a>
                                             </td>
                                             <td>
-                                                <a href=""  class="button table_btn_delete">Delete</a>                                                
+                                                <a href="" id="delBtn"  class="button table_btn_delete">Delete</a>                                                
                                             </td>
                                         </tr>
                                         <tr>
@@ -50,11 +51,11 @@
                                                     Andela cohort 10 2018 bootcamp week
                                             </td>
                                             <td>
-                                                <a href="" class="button table_btn">Update</a>
+                                                <a href=""  id="editBtn" class="button table_btn">Update</a>
 
                                             </td>
                                             <td>
-                                                <a href="" class="button table_btn_delete">Delete</a>                                                
+                                                <a href="" id="delBtn"  class="button table_btn_delete">Delete</a>                                                
                                             </td>
                                         </tr>
                                         <tr>
@@ -62,10 +63,10 @@
                                                     Daily experiences in the month of July
                                             </td>
                                             <td>
-                                                <a href=""  class="button table_btn">Update</a>
+                                                <a href="" id="editBtn"  class="button table_btn">Update</a>
                                             </td>
                                             <td>
-                                                <a href="" class="button table_btn_delete">Delete</a>
+                                                <a href=""  class="button table_btn_delete">Delete</a>
                                             </td>
                                         </tr>
                                     </tbody>
@@ -95,5 +96,24 @@
                 </div>
             </div>
         </div>
+
+        <div class="modal" id="editModal">
+                <div class="modal_content">
+                    <div class="modal_header">
+                        <span class="close"><a href="">&times;</a></span>
+                        <h2>Update Diary</h2>
+                    </div>
+                    <div class="modal_body" style="padding-top: 20px;">
+                        <form action="" name="editdentry" method="POST">
+                            <div class="form-group">
+                                <input type="text" name="newdiary" class="formField" placeholder="New diary entry " />
+                            </div>
+                            <button class="button button_dash" name="entry_btn">Update</button>
+    
+                        </form>
+                    </div>
+                </div>
+            </div>
+
     </body>
 </html>
