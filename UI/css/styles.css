@@ -156,3 +156,34 @@ form .fieldIcon::after {
     color:#ffffff;
     text-shadow: 0 1px 0 rgba(0,0,0,0.25);
 }
+.registerContent{
+    height: auto;
+    padding: 10px;
+    position: absolute;
+    margin-right: 10px;
+    border-radius: 5px;
+    text-align: left !important;
+    box-shadow: 0 0 0 1px rgba(0,0,0,0.25), 0 3px 20px 0 rgba(0,0,0,0.15);
+    background-color: #F9F9FB;
+    background-image: url(../images/registerbg.png);
+    background-size: 950px 160px;
+    background-repeat: no-repeat;
+    background-position: top left;
+}
+.registerContent .registerPanel{
+    padding: 40px 73px 20px 40px;
+}
+.registerContent .registerPanel, .registerContent .regSidebar {
+    float: left;
+}
+.smallNotes h3 {
+    line-height: 1.4;
+    margin-bottom: 15px;
+}
+.smallNotes p:not(full-width){
+    max-width: 340px;
+}
+p{
+    margin: 0px;
+    margin-bottom: 30px;
+}
