@@ -1,9 +1,7 @@
-body{
+ody{
     font-family: 'Open Sans', sans-serif, arial, verdana;
     font-size: 14px;
     line-height: 1.42857;
-    margin: 0px;
-    margin-bottom: -300px !important;
 
 }
 h1,h2,h3,h4,h5,h6{
@@ -14,7 +12,9 @@ h1,h2,h3,h4,h5,h6{
 h3{
     font-size: 24px;
 }
-
+li {
+    line-height: 20px;
+}
 .pageWrapper{
     min-height: 100%;
 }
@@ -22,7 +22,6 @@ h3{
     background-image: linear-gradient(top bottom,#654a86,#534292);
     background-color: #534292;
     height: 100%;
-    margin-bottom:-100px; 
 }
 .container{
     position: relative;
@@ -41,12 +40,12 @@ h3{
 .container .loginPanel{
     color: #3f3f44;
 }
+/*************************************** LOGIN STYLES START HERE ********************/
 .loginPanel{
     max-width: 430px;
     margin: 50px auto 20px;
     border-radius: 5px;
     background-color: #fff;
-    padding-top: 20px;
 }
 .loginPanel h3 {
     margin: 0px 0 28;
@@ -102,11 +101,14 @@ form .fieldIcon::after {
     border-radius: 4px;
 }
 #loginField{width: 60% !important;}
-.buttonPupple{
-    color: #fff;
-    background-color: #79589f;
+#regformField{
+    padding: 6px 15px;
 }
-.button {
+.formField:focus{
+    border: solid 1px #654a86 !important;
+    box-shadow: 0 0 7px #654a86 !important;
+}
+.button{
     font-weight: normal;
     border-radius: 5px;
     border: none;
@@ -116,7 +118,26 @@ form .fieldIcon::after {
     margin-bottom: 20px;
     font-size: 18px;
     line-height: 1.33;
-    width: 100%;
+    width: 100%
+}
+#regbtn{
+    width:88% !important;
+    margin: 0 0 0 15px;
+}
+.buttonPupple{
+    color: #fff;
+    background-color: #79589f;
+}
+.errorMsg {
+    background-color: #d64242;
+    border-color: #d64242;
+    color: #FFF;
+}
+.error {
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid transparent;
+    border-radius: 4px;
 }
 .loginPanel a.panelFooter {
     text-decoration: none;
@@ -139,6 +160,9 @@ form .fieldIcon::after {
     color: #79589f;
     text-decoration: underline;
 }
+/******************************************  LOGIN STYLES END HERE ******************/
+
+/************************** Reigster styles **************************************/
 .register{
     max-width: 800px;
     margin: 0 auto;
