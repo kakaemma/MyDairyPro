@@ -13,4 +13,4 @@ class TestAuthentication(BaseClass):
         response = self.client.post('/api/v1/register',
                                     content_type='application/json',
                                     data=self.empty_reg)
-        self.assertIn('Missing values', response.data.decode())
+        self.assertIn('Missing or bad parameter submitted', response.data.decode())
