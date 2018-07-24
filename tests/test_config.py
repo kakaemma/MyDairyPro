@@ -22,3 +22,13 @@ class TestProductionEnv(TestCase):
         """ Should return false when debug and testing are off"""
         self.assertFalse(app.config['DEBUG'])
         self.assertFalse(app.config['TESTING'])
+
+class TestTestingEnv(TestCase):
+    def create_app(self):
+        app.config.from_object('instance.config.TestingEnvironment')
+        return app
+
+    def test_app_in_testing_env(self):
+        """ should return true if debug and testing are set to true"""
+        self.assertTrue(app.config['DEBUG'])
+        self.assertTrue(app.config['TESTING'])
