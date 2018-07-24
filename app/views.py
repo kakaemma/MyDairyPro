@@ -13,7 +13,7 @@ def index():
     :return: 
     """
 
-    return "<h2>Welcome to MyDiary</h2>"
+    return "<h2>Welcome to My Diary</h2>"
 
 
 @app.route('/api/<version>/register', methods=['POST'])
