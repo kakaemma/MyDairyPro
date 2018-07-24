@@ -10,6 +10,6 @@ class BaseClass(unittest.TestCase):
 
         self.empty_reg = json.dumps({
             'name': '',
-            'email': '',
+            'emaicl': '',
             'password': ''
         })
