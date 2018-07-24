@@ -24,28 +24,24 @@ def register(version):
     :return: 
     """
     request.get_json(force=True)
-    user_data = request.json
-
-    if 'name' in user_data and 'email' in user_data \
-            and 'password' in user_data:
-        name = user_data['name']
-        email =user_data['email']
-        password = user_data['password']
-        if name and email and password:
-            user= UserModel(name,email, password)
+    if 'name' in request.json and 'email' in request.json \
+            and 'password' in request.json:
+        if request.json['name'] and request.json['email'] \
+                and request.json['password']:
+            user= UserModel(request.json['name'],request.json['email'],
+                            request.json['email'])
             register_user = user.add_user()
             if register_user == None:
                 response = jsonify({
-                    'Email': user_data['email'],
+                    'Email': request.json['email'],
                     'Status': 'successfully registered'
                 }),201
                 return response
             response = jsonify({
-                'Email': user_data['email'],
                 'Conflict': 'User already exists'
             }),409
             return response
-
+        
         response = jsonify({
             'status': 'Empty values submitted'
         }),400
