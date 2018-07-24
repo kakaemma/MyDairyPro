@@ -46,8 +46,8 @@ def register(version):
     return response
 
 
-@app.route('/api/<version>/register', methods=['POST'])
-def register(version):
+@app.route('/api/<version>/login', methods=['POST'])
+def login(version):
     """
     This end point signs in a user
     :param version: 
