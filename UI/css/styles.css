@@ -2,6 +2,8 @@ body{
     font-family: 'Open Sans', sans-serif, arial, verdana;
     font-size: 14px;
     line-height: 1.42857;
+    margin: 0px;
+    margin-bottom: -300px !important;
 
 }
 h1,h2,h3,h4,h5,h6{
@@ -12,10 +14,15 @@ h1,h2,h3,h4,h5,h6{
 h3{
     font-size: 24px;
 }
+
+.pageWrapper{
+    min-height: 100%;
+}
 .coloredBg{
     background-image: linear-gradient(top bottom,#654a86,#534292);
     background-color: #534292;
     height: 100%;
+    margin-bottom:-100px; 
 }
 .container{
     position: relative;
@@ -39,6 +46,7 @@ h3{
     margin: 50px auto 20px;
     border-radius: 5px;
     background-color: #fff;
+    padding-top: 20px;
 }
 .loginPanel h3 {
     margin: 0px 0 28;
