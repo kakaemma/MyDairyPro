@@ -22,3 +22,12 @@ def register(version):
     """
     pass
 
+@app.route('/api/<version>/register', methods=['POST'])
+def register(version):
+    """
+    This end point signs in a user
+    :param version: 
+    :return: 
+    """
+    pass
+
