@@ -231,6 +231,7 @@ form .fieldIcon::after {
 .button_area {
     margin-bottom: 25px;
     height: 40px;
+    padding-left:43%; 
 }
 a.button, button {
     background-color: #79589f;
@@ -257,6 +258,35 @@ a.button, button {
     padding: 0 20px;
     text-decoration: none;
     width:90px
+}
+.table_btn{
+    background-color: #79589f;
+    display: inline-block;
+    text-decoration: none !important;
+    font-size: 16px;
+    height: 40px;
+    line-height: 40px;
+    margin-right: 20px;
+    margin-top: 15px;
+    padding: 0 20px;
+    text-decoration: none;
+    width:90px;
+    color: #FFFFFF;
+    
+}
+.table_btn_delete{
+    background-color: #e43149 !important;
+    display: inline-block;
+    text-decoration: none !important;
+    font-size: 16px;
+    height: 40px;
+    line-height: 40px;
+    margin-right: 20px;
+    margin-top: 15px;
+    padding: 0 20px;
+    text-decoration: none;
+    width:90px;
+    color: #FFFFFF;
 }
 .main_table{
     width:80%;
@@ -310,15 +340,16 @@ a.button, button {
     to {top:0; opacity:1}
 }
 .close {
-    color: white;
+    color: #FFFFFF !important;
+    text-decoration: none !important;
     float: right;
     font-size: 28px;
     font-weight: bold;
 }
 .close:hover,
 .close:focus {
-    color: #000;
-    text-decoration: none;
+    color: #FFFFFF !important;
+    text-decoration: none !important;
     cursor: pointer;
 }
 .modal_header {
@@ -363,4 +394,15 @@ a.button, button {
     margin-right: 15%;
     margin-top: 3%;
     text-align: center
+}
+table{
+    margin-top: 80px;
+    margin-left: 25%;
+}
+table th, td {
+    border-bottom: 1px solid #ddd;
+}
+ th, td {
+    padding: 15px;
+    text-align: center;
 }
