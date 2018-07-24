@@ -41,11 +41,6 @@ def register(version):
             }),409
             return response
 
-        response = jsonify({
-            'status': 'Empty values submitted'
-        }),400
-        return response
-
     response = jsonify({
         'Error': 'Missing or bad parameter submitted',
     }),400
