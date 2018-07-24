@@ -18,8 +18,7 @@ def index():
 
 @app.route('/api/<version>/register', methods=['POST'])
 def register(version):
-    """
-    This end point registers a user
+    """ This end point registers a user
     :param version: 
     :return: 
     """
@@ -33,15 +32,15 @@ def register(version):
             register_user = user.add_user()
             if register_user == None:
                 response = jsonify({
-                    'Email': request.json['email'],
-                    'Status': 'successfully registered'
+                    'Status': request.json['email']+ \
+                              'successfully registered'
                 }),201
                 return response
             response = jsonify({
                 'Conflict': 'User already exists'
             }),409
             return response
-        
+
         response = jsonify({
             'status': 'Empty values submitted'
         }),400
