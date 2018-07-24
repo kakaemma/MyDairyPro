@@ -94,3 +94,28 @@ form .fieldIcon::after {
     border-radius: 4px;
 }
 #loginField{width: 60% !important;}
+.buttonPupple{
+    color: #fff;
+    background-color: #79589f;
+}
+.loginPanel a.panelFooter {
+    text-decoration: none;
+}
+.loginPanel .panelFooter {
+    padding: 20px;
+    display: block;
+    font-size: 17px;
+    color: #878797;
+    font-weight: 100;
+}
+.panelFooter {
+    padding: 10px 15px;
+    background-color: #f5f5f5;
+    border-top: 1px solid #ddd;
+    border-bottom-right-radius: 3px;
+    border-bottom-left-radius: 3px;
+}
+.loginPanel a.panelFooter>span {
+    color: #79589f;
+    text-decoration: underline;
+}
