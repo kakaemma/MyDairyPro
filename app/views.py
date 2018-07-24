@@ -4,6 +4,7 @@ from app import create_app
 
 app = create_app('TestingEnv')
 
+
 @app.route('/')
 def index():
     """
@@ -13,6 +14,7 @@ def index():
 
     return "<h2>Welcome to MyDiary</h2>"
 
+
 @app.route('/api/<version>/register', methods=['POST'])
 def register(version):
     """
@@ -20,7 +22,11 @@ def register(version):
     :param version: 
     :return: 
     """
-    pass
+    user_data = request.json
+    if 'name' in user_data and 'email' in user_data and 'password' in user_data:
+        pass
+
+
 
 @app.route('/api/<version>/register', methods=['POST'])
 def register(version):
