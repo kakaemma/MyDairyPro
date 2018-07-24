@@ -1,5 +1,6 @@
 # config file
 
+
 class MainConfiguration(object):
     """ Main configuration class"""
     DEBUG = False
