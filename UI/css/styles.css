@@ -98,6 +98,18 @@ form .fieldIcon::after {
     color: #fff;
     background-color: #79589f;
 }
+.button {
+    font-weight: normal;
+    border-radius: 5px;
+    border: none;
+    padding-left: 18px;
+    padding-right: 18px;
+    padding: 10px 16px;
+    margin-bottom: 20px;
+    font-size: 18px;
+    line-height: 1.33;
+    width: 100%;
+}
 .loginPanel a.panelFooter {
     text-decoration: none;
 }
