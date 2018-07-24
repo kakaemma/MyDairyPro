@@ -25,22 +25,32 @@ def register(version):
     """
     request.get_json(force=True)
     user_data = request.json
+
     if 'name' in user_data and 'email' in user_data \
             and 'password' in user_data:
-        user= UserModel(user_data['name'],
-                        user_data['email'], user_data['password'])
-        register_user = user.add_user()
-        if register_user == None:
+        name = user_data['name']
+        email =user_data['email']
+        password = user_data['password']
+        if name and email and password:
+            user= UserModel(name,email, password)
+            register_user = user.add_user()
+            if register_user == None:
+                response = jsonify({
+                    'Email': user_data['email'],
+                    'Status': 'successfully registered'
+                }),201
+                return response
             response = jsonify({
                 'Email': user_data['email'],
-                'Status': 'successfully registered'
-            }),201
+                'Conflict': 'User already exists'
+            }),409
             return response
+
         response = jsonify({
-            'Email': user_data['email'],
-            'Conflict': 'User already exists'
-        }),409
+            'status': 'Empty values submitted'
+        }),400
         return response
+
     response = jsonify({
         'Error': 'Missing or bad parameter submitted',
     }),400
