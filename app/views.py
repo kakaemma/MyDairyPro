@@ -50,8 +50,9 @@ def add_entries(version):
     request.get_json(force=True)
     if 'name' in request.json and 'desc' in request.json:
         if request.json['name'] and request.json['desc']:
-            add_diary = DiaryModel(request.json['name'], request.json['desc'])
-            if add_diary !=None:
+            diary = DiaryModel(request.json['name'], request.json['desc'])
+            new_diary = diary.create_diary()
+            if new_diary !=None:
                 return message_to_return(409, 'Diary')
             return message_to_return(201, 'Diary')
 
@@ -63,7 +64,7 @@ def add_entries(version):
 def message_to_return(status_code, optional_msg = None):
     if status_code == 201:
         response = jsonify({
-            'Status': optional_msg + ' successfully registered'
+            'Status': optional_msg + ' successfully added'
         }), 201
         return response
     if status_code == 409:
