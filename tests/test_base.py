@@ -1,7 +1,6 @@
 import unittest
 from flask import json
 from config import application_config
-from app.models import UserModel
 from app.views import app
 
 class BaseClass(unittest.TestCase):
@@ -31,4 +30,4 @@ class BaseClass(unittest.TestCase):
             'password': '1234567'
         })
     def tearDown(self):
-        UserModel.users = []
+        pass
