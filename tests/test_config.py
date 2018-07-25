@@ -6,7 +6,7 @@ import unittest
 class TestDevelopmentEnvironment(TestCase):
     """ Test app in development environment"""
     def create_app(self):
-        app.config.from_object('instance.config.DevelopmentEnvironment')
+        app.config.from_object('config.DevelopmentEnvironment')
         return app
 
     def test_app_in_development_env(self):
@@ -16,7 +16,7 @@ class TestDevelopmentEnvironment(TestCase):
 
 class TestProductionEnv(TestCase):
     def create_app(self):
-        app.config.from_object('instance.config.ProductionEnvironment')
+        app.config.from_object('config.ProductionEnvironment')
         return app
 
     def test_app_in_production(self):
@@ -27,7 +27,7 @@ class TestProductionEnv(TestCase):
 
 class TestTestingEnv(TestCase):
     def create_app(self):
-        app.config.from_object('instance.config.TestingEnvironment')
+        app.config.from_object('config.TestingEnvironment')
         return app
 
     def test_app_in_testing_env(self):
@@ -38,7 +38,7 @@ class TestTestingEnv(TestCase):
 
 class TestStagingEnv(TestCase):
     def create_app(self):
-        app.config.from_object('instance.config.StagingEnvironment')
+        app.config.from_object('config.StagingEnvironment')
         return app
 
     def test_app_in_staging_env(self):
