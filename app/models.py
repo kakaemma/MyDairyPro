@@ -25,4 +25,7 @@ class DiaryModel(object):
             if this_diary.name == self.name:
                 return self.name
         DiaryModel.diary.append(self)
-        
+
+
+
+
