@@ -30,6 +30,17 @@ def add_entries(version):
     return message_to_return(400)
 
 
+@app.route('/api/<version>/entries', methods=['GET'])
+def get_entries(version):
+    entries = DiaryModel.get_entries()
+    if entries == None:
+        return message_to_return(404, 'Diaries')
+    return message_to_return(200,entries)
+
+
+
+
+
 
 
 def message_to_return(status_code, optional_msg = None):
@@ -37,6 +48,11 @@ def message_to_return(status_code, optional_msg = None):
         response = jsonify({
             'Status': optional_msg + ' successfully added'
         }), 201
+        return response
+    if status_code == 200:
+        response = jsonify({
+            'Diary entries': optional_msg
+        }), 200
         return response
     if status_code == 409:
         response = jsonify({
@@ -53,7 +69,14 @@ def message_to_return(status_code, optional_msg = None):
 
     if status_code == 400:
         response = jsonify({
-            ''
             'Error': 'Missing or bad parameter submitted',
         }), 400
         return response
+
+    if status_code == 404:
+        response = jsonify({
+
+            'Error': optional_msg + ' not found',
+        }), 404
+        return response
+
