@@ -33,9 +33,19 @@ def add_entries(version):
 @app.route('/api/<version>/entries', methods=['GET'])
 def get_entries(version):
     entries = DiaryModel.get_entries()
-    if entries == None:
+    if entries is None:
         return message_to_return(404, 'Diaries')
     return message_to_return(200,entries)
+
+
+@app.route('/api/<version>/entries/<int:diary_id>', methods=['GET'])
+def get_entry(version, diary_id):
+    entry = DiaryModel.get_entry(diary_id)
+    if entry == 'Entry':
+        return message_to_return(404, 'Entry')
+    if entry == 'Diary':
+        return message_to_return(404, 'Diary')
+    return message_to_return(200, entry)
 
 
 
@@ -76,7 +86,7 @@ def message_to_return(status_code, optional_msg = None):
     if status_code == 404:
         response = jsonify({
 
-            'Error': optional_msg + ' not found',
+            'Error': optional_msg + ' not found. Add entries first',
         }), 404
         return response
 
