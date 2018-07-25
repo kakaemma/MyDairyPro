@@ -28,13 +28,19 @@ def register(version):
             and 'password' in request.json:
         if request.json['name'] and request.json['email'] \
                 and request.json['password']:
+
+            if len(request.json['password']) < 6:
+                return message_to_return(422, 'Password too short')
+
             if validate_email(request.json['email']):
                 user = UserModel(request.json['name'],
                                  request.json['email'], request.json['email'])
+
                 register_user = user.add_user()
+                print(register_user)
                 if register_user == None:
                     return  message_to_return(201)
-                return message_to_return(409)
+                return message_to_return(409, 'email')
             return message_to_return(422)
     return message_to_return(400)
 
@@ -44,39 +50,29 @@ def register(version):
 
 
 
-@app.route('/api/<version>/login', methods=['POST'])
-def login(version):
-    """
-    This end point signs in a user
-    :param version: 
-    :return: 
-    """
-    pass
-
-def message_to_return(status_code):
+def message_to_return(status_code, optional_msg = None):
     if status_code == 201:
         response = jsonify({
             'Status': request.json['email'] + \
-                      'successfully registered'
+                      ' successfully registered'
         }), 201
         return response
     if status_code == 409:
         response = jsonify({
-            'Conflict': 'User already exists'
+            'Conflict': optional_msg +' already exists'
         }), 409
         return response
 
     if status_code == 422:
         response = jsonify({
-            'Error': 'Unprocessable entity'
+            'Error': 'Unprocessable entity',
+            'msg': optional_msg
         }), 422
         return response
 
     if status_code == 400:
         response = jsonify({
+            ''
             'Error': 'Missing or bad parameter submitted',
         }), 400
         return response
-
-
-
