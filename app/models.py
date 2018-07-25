@@ -56,14 +56,16 @@ class DiaryModel(object):
 
         return 'Diary'
 
-
-
-
-
-
-
-
-
-
-
-
+    @classmethod
+    def modify_entry(cls, diary_id, name, desc):
+        if len(DiaryModel.diary) >= 1:
+            for entry in DiaryModel.diary:
+                if entry.diary_id == diary_id:
+                    if entry.name == name:
+                        return 'same name'
+                    entry.name = name
+                    entry.dec = desc
+                    entry.date_modified = datetime.datetime.utcnow()
+                    return 'modified'
+                return 'no entry'
+        return 'No diary'

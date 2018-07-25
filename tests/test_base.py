@@ -18,5 +18,9 @@ class BaseClass(unittest.TestCase):
             'name':'Uganda rally 2018',
             'desc': 'Win all rallies'
         })
+        self.edit_diary = json.dumps({
+            'name':'World class developer',
+            'desc': 'Attend boot camp'
+        })
     def tearDown(self):
         DiaryModel.diary = []

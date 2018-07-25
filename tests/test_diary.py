@@ -65,3 +65,68 @@ class TestDiary(BaseClass):
         response = self.client.get('/api/v1/entries/2')
         self.assertIn('Entry', response.data.decode())
         self.assertEqual(response.status_code, 404)
+
+    def test_modify_diary_on_empty_diary(self):
+        """ Test editing when diary is empty"""
+        response = self.client.put('/api/v1/entries/1',
+                                   content_type='application/json',
+                                   data=self.new_diary,
+                                   )
+        self.assertIn('Diary not found', response.data.decode())
+        self.assertEqual(response.status_code, 404)
+
+    def test_modify_diary_with_empty_name(self):
+        """ Tests editing with empty values"""
+        self.client.post('/api/v1/entries',
+                         content_type='application/json',
+                         data=self.new_diary,
+                         )
+        response = self.client.put('/api/v1/entries/1',
+                                   content_type='application/json',
+                                   data=self.empty_diary,
+                                   )
+        self.assertIn('Missing or bad parameter submitted',
+                      response.data.decode())
+        self.assertEqual(response.status_code, 400)
+
+    def test_modify_diary_with_wrong_id(self):
+        """ Should return entry not found"""
+        self.client.post('/api/v1/entries',
+                         content_type='application/json',
+                         data=self.new_diary,
+                         )
+        response = self.client.put('/api/v1/entries/2',
+                                   content_type='application/json',
+                                   data=self.edit_diary,
+                                   )
+        self.assertIn('Entry not found',
+                      response.data.decode())
+        self.assertEqual(response.status_code, 404)
+
+    def test_modify_diary_with_same_name(self):
+        """ Should return name exists if editing with same name"""
+        self.client.post('/api/v1/entries',
+                         content_type='application/json',
+                         data=self.new_diary,
+                         )
+        response = self.client.put('/api/v1/entries/1',
+                                   content_type='application/json',
+                                   data=self.new_diary,
+                                   )
+        self.assertIn('name already exists', response.data.decode())
+        self.assertEqual(response.status_code, 409)
+
+    def test_modify_diary_successfully(self):
+        """ Should return successfully modified"""
+        self.client.post('/api/v1/entries',
+                         content_type='application/json',
+                         data=self.new_diary,
+                         )
+        response = self.client.put('/api/v1/entries/1',
+                                   content_type='application/json',
+                                   data=self.edit_diary,
+                                   )
+        self.assertIn('successfully modified', response.data.decode())
+        self.assertEqual(response.status_code, 200)
+
+
