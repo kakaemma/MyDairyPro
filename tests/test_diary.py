@@ -65,3 +65,25 @@ class TestDiary(BaseClass):
         response = self.client.get('/api/v1/entries/2')
         self.assertIn('Entry', response.data.decode())
         self.assertEqual(response.status_code, 404)
+
+    def test_modify_diary_on_empty_diary(self):
+        response = self.client.put('/api/v1/entries/1',
+                                   content_type='application/json',
+                                   data=self.new_diary,
+                                   )
+        self.assertIn('Diary not found', response.data.decode())
+        self.assertEqual(response.status_code, 404)
+
+    def test_modify_diary_with_empty_name(self):
+        self.client.post('/api/v1/entries',
+                         content_type='application/json',
+                         data=self.new_diary,
+                         )
+        response = self.client.put('/api/v1/entries/1',
+                                   content_type='application/json',
+                                   data=self.empty_diary,
+                                   )
+        self.assertIn('Missing or bad parameters', response.data.decode())
+        self.assertEqual(response.status_code, 422)
+
+
