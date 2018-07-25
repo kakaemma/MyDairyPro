@@ -48,3 +48,20 @@ class TestDiary(BaseClass):
         response = self.client.get('/api/v1/entries')
         self.assertIn('Diary entries', response.data.decode())
         self.assertEqual(response.status_code, 200)
+
+    def test_get_single_diary_on_empty_diary(self):
+        """ Should return No diary entries added"""
+        response = self.client.get('/api/v1/entries/11')
+        self.assertIn('Diary not found',
+                      response.data.decode())
+        self.assertEqual(response.status_code, 404)
+
+    def test_get_single_diary_that_does_not_exist(self):
+        """ Should return diary not found and status code 404"""
+        self.client.post('/api/v1/entries',
+                         content_type='application/json',
+                         data=self.new_diary,
+                         )
+        response = self.client.get('/api/v1/entries/2')
+        self.assertIn('Entry', response.data.decode())
+        self.assertEqual(response.status_code, 404)
