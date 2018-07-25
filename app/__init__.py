@@ -1,6 +1,7 @@
+import os
 from flask_api import FlaskAPI
 from config import application_config
-import os
+
 
 
 def create_app(config_name):
