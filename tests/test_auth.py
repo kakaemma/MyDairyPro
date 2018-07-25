@@ -37,7 +37,7 @@ class TestAuthentication(BaseClass):
         response = self.client.post('/api/v1/register',
                                     content_type='application/json',
                                     data=self.user)
-        self.assertIn('successfully registered',
+        self.assertIn('successfully added',
                       response.data.decode())
         self.assertEqual(response.status_code, 201)
 
