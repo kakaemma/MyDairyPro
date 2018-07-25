@@ -67,6 +67,7 @@ class TestDiary(BaseClass):
         self.assertEqual(response.status_code, 404)
 
     def test_modify_diary_on_empty_diary(self):
+        """ Test editing when diary is empty"""
         response = self.client.put('/api/v1/entries/1',
                                    content_type='application/json',
                                    data=self.new_diary,
@@ -75,6 +76,7 @@ class TestDiary(BaseClass):
         self.assertEqual(response.status_code, 404)
 
     def test_modify_diary_with_empty_name(self):
+        """ Tests editing with empty values"""
         self.client.post('/api/v1/entries',
                          content_type='application/json',
                          data=self.new_diary,
@@ -88,6 +90,7 @@ class TestDiary(BaseClass):
         self.assertEqual(response.status_code, 400)
 
     def test_modify_diary_with_wrong_id(self):
+        """ Should return entry not found"""
         self.client.post('/api/v1/entries',
                          content_type='application/json',
                          data=self.new_diary,
@@ -101,6 +104,7 @@ class TestDiary(BaseClass):
         self.assertEqual(response.status_code, 404)
 
     def test_modify_diary_with_same_name(self):
+        """ Should return name exists if editing with same name"""
         self.client.post('/api/v1/entries',
                          content_type='application/json',
                          data=self.new_diary,
@@ -113,6 +117,7 @@ class TestDiary(BaseClass):
         self.assertEqual(response.status_code, 409)
 
     def test_modify_diary_successfully(self):
+        """ Should return successfully modified"""
         self.client.post('/api/v1/entries',
                          content_type='application/json',
                          data=self.new_diary,
