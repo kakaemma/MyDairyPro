@@ -30,6 +30,11 @@ def add_entries(version):
     return message_to_return(400)
 
 
+@app.route('/api/<version>/entries', methods=['GET'])
+def get_entries(version):
+    pass
+
+
 
 
 def message_to_return(status_code, optional_msg = None):
