@@ -23,3 +23,31 @@ class TestAuthentication(BaseClass):
                                     data=self.invalid_email)
         self.assertIn('Unprocessable entity', response.data.decode())
         self.assertEqual(response.status_code, 422)
+
+    def test_registration_with_short_password(self):
+        """ Should return password too short"""
+        response = self.client.post('/api/v1/register',
+                                    content_type='application/json',
+                                    data=self.short_password)
+        self.assertIn('Password too short', response.data.decode())
+        self.assertEqual(response.status_code, 422)
+
+    def test_successful_registration(self):
+        """ Should return registration successful and status code 201"""
+        response = self.client.post('/api/v1/register',
+                                    content_type='application/json',
+                                    data=self.user)
+        self.assertIn('successfully registered',
+                      response.data.decode())
+        self.assertEqual(response.status_code, 201)
+
+    def test_registration_with_existing_email(self):
+        """ Should return conflict email already exists"""
+        self.client.post('/api/v1/register',
+                         content_type='application/json',
+                         data=self.user)
+        response = self.client.post('/api/v1/register',
+                                    content_type='application/json',
+                                    data=self.user)
+        self.assertIn('Email already exists', response.data.decode())
+        self.assertEqual(response.status_code, 409)
