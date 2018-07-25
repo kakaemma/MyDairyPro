@@ -1,6 +1,6 @@
 import unittest
 from flask import json
-from instance.config import application_config
+from config import application_config
 from app.models import UserModel
 from app.views import app
 
