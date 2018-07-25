@@ -43,8 +43,11 @@ class DiaryModel(object):
         Adds diary object to list
         :return: 
         """
+
+        for this_diary in DiaryModel.diary:
+            if this_diary.name == self.name:
+                return self.name
         DiaryModel.diary.append(self)
-        return self.diary_id
 
 
 
