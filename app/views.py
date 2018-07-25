@@ -45,6 +45,14 @@ def register(version):
     return message_to_return(400)
 
 
+@app.route('/api/<version>/entries', methods=['POST'])
+def add_entries(version):
+    request.get_json(force=True)
+    if 'name' in request.json and 'description' in request.json:
+        pass
+    return message_to_return(400)
+
+
 
 
 
