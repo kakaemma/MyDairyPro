@@ -37,7 +37,7 @@ def get_entries(version):
         return message_to_return(404, 'Diaries')
     return message_to_return(200,entries)
 
-def 
+
 
 
 
