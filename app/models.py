@@ -69,16 +69,3 @@ class DiaryModel(object):
                     return 'modified'
                 return 'no entry'
         return 'No diary'
-
-
-
-
-
-
-
-
-
-
-
-
-
