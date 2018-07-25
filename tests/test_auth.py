@@ -49,5 +49,5 @@ class TestAuthentication(BaseClass):
         response = self.client.post('/api/v1/register',
                                     content_type='application/json',
                                     data=self.user)
-        self.assertIn('Email already exists', response.data.decode())
+        self.assertIn('email already exists', response.data.decode())
         self.assertEqual(response.status_code, 409)
