@@ -112,4 +112,16 @@ class TestDiary(BaseClass):
         self.assertIn('name already exists', response.data.decode())
         self.assertEqual(response.status_code, 409)
 
+    def test_modify_diary_successfully(self):
+        self.client.post('/api/v1/entries',
+                         content_type='application/json',
+                         data=self.new_diary,
+                         )
+        response = self.client.put('/api/v1/entries/1',
+                                   content_type='application/json',
+                                   data=self.edit_diary,
+                                   )
+        self.assertIn('successfully modified', response.data.decode())
+        self.assertEqual(response.status_code, 200)
+
 
