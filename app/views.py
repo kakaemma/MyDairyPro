@@ -47,10 +47,25 @@ def get_entry(version, diary_id):
         return message_to_return(404, 'Diary')
     return message_to_return(200, entry)
 
+@app.route('/api/<version>/entries/<int:diary_id>', methods=['PUT'])
+def modify_entry(version, diary_id):
+    request.get_json(force=True)
+    if 'name' in request.json and 'desc' in request.json:
+        if request.json['name'] and request.json['desc']:
 
+            edit_entry = DiaryModel.modify_entry(diary_id,
+                                                 request.json['name'],
+                                                 request.json['desc'])
+            if edit_entry == 'No diary':
+                return message_to_return(404, 'Diary')
+            if edit_entry == 'no entry':
+                return message_to_return(404, 'Entry')
+            if edit_entry == 'same name':
+                return message_to_return(409, 'name')
+            if edit_entry == 'modified':
+                return message_to_return(200, 'successfully modified')
 
-
-
+    return message_to_return(400)
 
 
 def message_to_return(status_code, optional_msg = None):
@@ -89,4 +104,3 @@ def message_to_return(status_code, optional_msg = None):
             'Error': optional_msg + ' not found. Add entries first',
         }), 404
         return response
-
