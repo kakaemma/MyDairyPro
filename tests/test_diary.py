@@ -19,3 +19,15 @@ class TestDiary(BaseClass):
                                    )
         self.assertIn('Diary successfully added', response.data.decode())
         self.assertEqual(response.status_code, 201)
+
+    def test_add_diary_with_existing_name(self):
+        self.client.post('/api/v1/entries',
+                         content_type='application/json',
+                         data=self.new_diary,
+                         )
+        response = self.client.post('/api/v1/entries',
+                                    content_type='application/json',
+                                    data=self.new_diary,
+                                    )
+        self.assertIn('Diary already exists', response.data.decode())
+        self.assertEqual(response.status_code, 409)
