@@ -1,7 +1,7 @@
 import unittest
 from flask import json
 from config import application_config
-from app.models import UserModel, DiaryModel
+from app.models import DiaryModel
 from app.views import app
 
 class BaseClass(unittest.TestCase):
@@ -19,5 +19,4 @@ class BaseClass(unittest.TestCase):
             'desc': 'Win all rallies'
         })
     def tearDown(self):
-        UserModel.users = []
         DiaryModel.diary = []
