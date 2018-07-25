@@ -39,6 +39,28 @@ class DiaryModel(object):
                 })
             return response
 
+    @classmethod
+    def get_entry(cls, diary_id):
+        if len(DiaryModel.diary) >=1:
+            response = []
+            for entry in DiaryModel.diary:
+                if entry.diary_id == diary_id:
+                    response.append({
+                    'id': entry.diary_id,
+                    'name': entry.name,
+                    'Date created': entry.date_created,
+                    'Date Modified': entry.date_modified
+                    })
+                    return response
+                return 'Entry'
+
+        return 'Diary'
+
+
+
+
+
+
 
 
 
