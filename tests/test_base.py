@@ -1,7 +1,7 @@
 import unittest
 from flask import json
 from instance.config import application_config
-from app.models import UserModel
+from app.models import UserModel, DiaryModel
 from app.views import app
 
 class BaseClass(unittest.TestCase):
@@ -30,5 +30,15 @@ class BaseClass(unittest.TestCase):
             'email': 'kakaemma@gmail.com',
             'password': '1234567'
         })
+
+        self.empty_diary = json.dumps({
+            'name':'',
+            'desc': ''
+        })
+        self.new_diary = json.dumps({
+            'name':'Uganda rally 2018',
+            'desc': 'Win all rallies'
+        })
     def tearDown(self):
         UserModel.users = []
+        DiaryModel.diary = []
