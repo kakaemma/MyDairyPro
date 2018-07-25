@@ -1,5 +1,5 @@
 from flask import jsonify, request, render_template
-from app.models import UserModel
+from app.models import UserModel, DiaryModel
 from validate_email import validate_email
 from app import create_app
 
@@ -39,13 +39,23 @@ def register(version):
                 register_user = user.add_user()
                 print(register_user)
                 if register_user == None:
-                    return  message_to_return(201)
+                    return  message_to_return(201, request.json['email'])
                 return message_to_return(409, 'email')
             return message_to_return(422)
     return message_to_return(400)
 
 
+@app.route('/api/<version>/entries', methods=['POST'])
+def add_entries(version):
+    request.get_json(force=True)
+    if 'name' in request.json and 'desc' in request.json:
+        if request.json['name'] and request.json['desc']:
+            add_diary = DiaryModel(request.json['name'], request.json['desc'])
+            if add_diary !=None:
+                return message_to_return(409, 'Diary')
+            return message_to_return(201, 'Diary')
 
+    return message_to_return(400)
 
 
 
@@ -53,8 +63,7 @@ def register(version):
 def message_to_return(status_code, optional_msg = None):
     if status_code == 201:
         response = jsonify({
-            'Status': request.json['email'] + \
-                      ' successfully registered'
+            'Status': optional_msg + ' successfully registered'
         }), 201
         return response
     if status_code == 409:
