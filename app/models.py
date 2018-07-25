@@ -18,5 +18,9 @@ class UserModel(object):
     def add_user(self):
         for user in UserModel.users:
             if user.email == self.email:
-                return self.email
-            UserModel.users.append(self)
+                return 'exists'
+        UserModel.users.append(self)
+
+
+
+
