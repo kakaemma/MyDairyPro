@@ -19,3 +19,18 @@ class BaseClass(unittest.TestCase):
             'email': 'kakaemma',
             'password': '123456'
         })
+        self.short_password = json.dumps({
+            'name': 'Kakaire',
+            'email': 'kakaemma@gmail.com',
+            'password': '1234'
+        })
+        self.user = json.dumps({
+            'name': 'Emmanuel',
+            'email': 'kakaemma@gmail.com',
+            'password': '1234567'
+        })
+        self.same_user = json.dumps({
+            'name': 'Emmanuel',
+            'email': 'kakaemma@gmail.com',
+            'password': '1234567'
+        })
