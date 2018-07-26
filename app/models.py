@@ -44,8 +44,8 @@ class DiaryModel(object):
                 })
             return response
 
-    @classmethod
-    def get_entry(cls, diary_id):
+    @staticmethod
+    def get_entry(search_id):
         """
         This method gets a single entry
         :param diary_id: 
@@ -54,17 +54,16 @@ class DiaryModel(object):
         if len(DiaryModel.diary) >= 1:
             response = []
             for entry in DiaryModel.diary:
-                if entry.diary_id == diary_id:
+                if entry.diary_id == search_id:
                     response.append({
-                        'id': entry.diary_id,
-                        'name': entry.name,
-                        'Description': entry.desc,
-                        'Date created': entry.date_created,
-                        'Date Modified': entry.date_modified
-                    })
-                    return response
-                return 'Entry'
+                            'id': entry.diary_id,
+                            'name': entry.name,
+                            'Description': entry.desc,
+                            'Date created': entry.date_created,
+                            'Date Modified': entry.date_modified
+                        })
 
+            return response
         return 'Diary'
 
     @classmethod
@@ -77,6 +76,7 @@ class DiaryModel(object):
         :return: 
         """
         if len(DiaryModel.diary) >= 1:
+
             for entry in DiaryModel.diary:
                 if entry.diary_id == diary_id:
                     if entry.name == name:
@@ -85,5 +85,3 @@ class DiaryModel(object):
                     entry.dec = desc
                     entry.date_modified = datetime.datetime.utcnow()
                     return 'modified'
-                return 'no entry'
-        return 'No diary'
