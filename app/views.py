@@ -49,6 +49,7 @@ def get_entries(version):
         if entries is None:
             return message_to_return(404, 'Diaries')
         return message_to_return(200, entries)
+    return invalid_arguments()
 
 
 @app.route('/api/<version>/entries/<int:diary_id>', methods=['GET'])
@@ -66,6 +67,7 @@ def get_entry(version, diary_id):
         if entry == 'Diary':
             return message_to_return(404, 'Diary')
         return message_to_return(200, entry)
+    return invalid_arguments()
 
 
 @app.route('/api/<version>/entries/<int:diary_id>', methods=['PUT'])
@@ -94,6 +96,7 @@ def modify_entry(version, diary_id):
                     return message_to_return(200, 'successfully modified')
 
         return message_to_return(400)
+    return invalid_arguments()
 
 
 def message_to_return(status_code, optional_msg=None):
