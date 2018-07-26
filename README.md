@@ -37,3 +37,32 @@ pip install requirements.txt
 ```
 $ python run.py
 ```
+### To see the application running:
+Install postman and access the application at:
+
+```
+http://localhost:5000
+```
+### Running the tests
+To run tests, you need nose installed on your computer
+```
+$ pip install nose
+```
+running the tests
+```
+$ nosetests tests
+```
+
+### API resources
+
+These are the endpoints available in My Diary API
+
+HTTP Method | Endpoint | Description| 
+------------ | ------------- | ------------- 
+POST| /api/v1/entries |Adds a diary entry 
+POST| /api/v1/entries/<diary_id>/item |Adds description to a diary entry
+GET| /api/v1/entries |Retrieves all diary entries 
+GET| /api/v1/entries/<diary_id> |Retrieves a single diary entry 
+PUT| /api/v1/entries/<diary_id> |Modifies diary entry 
+
+
