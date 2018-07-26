@@ -62,7 +62,7 @@ def get_entry(version, diary_id):
     """
     if version == 'v1' and isinstance(diary_id, int):
         entry = DiaryModel.get_entry(diary_id)
-        if entry == 'Entry':
+        if entry == []:
             return message_to_return(404, 'Entry')
         if entry == 'Diary':
             return message_to_return(404, 'Diary')
@@ -86,10 +86,8 @@ def modify_entry(version, diary_id):
                 edit_entry = DiaryModel.modify_entry(diary_id,
                                                      request.json['name'],
                                                      request.json['desc'])
-                if edit_entry == 'No diary':
-                    return message_to_return(404, 'Diary')
-                if edit_entry == 'no entry':
-                    return message_to_return(404, 'Entry')
+                if edit_entry == None:
+                    return message_to_return(404, 'Diary or Entry')
                 if edit_entry == 'same name':
                     return message_to_return(409, 'name')
                 if edit_entry == 'modified':
