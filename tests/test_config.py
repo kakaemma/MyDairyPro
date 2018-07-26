@@ -45,5 +45,3 @@ class TestStagingEnv(TestCase):
         """ Check if debug is set to true"""
         self.assertTrue(app.config['DEBUG'])
 
-if __name__ == '__main__':
-    unittest.main()
