@@ -10,13 +10,12 @@ These instructions will get you a copy of the project up and running on your loc
 
 # Requirements
 `Python 3+, python-pip, virtualenv`
-Install all the dependencies in the requirements file
 
 ### Installation
 Clone the repository
 
 ```
-git clone https://github.com/kakaemma/MyDairyPro.
+git clone https://github.com/kakaemma/MyDairyPro.git
 cd MyDiaryPro
 ```
 
