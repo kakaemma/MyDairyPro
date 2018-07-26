@@ -38,6 +38,7 @@ class DiaryModel(object):
                 response.append({
                     'id': entry.diary_id,
                     'name': entry.name,
+                    'Description': entry.desc,
                     'Date created': entry.date_created,
                     'Date Modified': entry.date_modified
                 })
@@ -57,6 +58,7 @@ class DiaryModel(object):
                     response.append({
                         'id': entry.diary_id,
                         'name': entry.name,
+                        'Description': entry.desc,
                         'Date created': entry.date_created,
                         'Date Modified': entry.date_modified
                     })
