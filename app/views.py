@@ -28,7 +28,7 @@ def add_entries(version):
         if request.json['name'] and request.json['desc']:
             diary = DiaryModel(request.json['name'], request.json['desc'])
             new_diary = diary.create_diary()
-            if new_diary !=None:
+            if new_diary is not None:
                 return message_to_return(409, 'Diary')
             return message_to_return(201, 'Diary')
 
@@ -45,7 +45,7 @@ def get_entries(version):
     entries = DiaryModel.get_entries()
     if entries is None:
         return message_to_return(404, 'Diaries')
-    return message_to_return(200,entries)
+    return message_to_return(200, entries)
 
 
 @app.route('/api/<version>/entries/<int:diary_id>', methods=['GET'])
@@ -62,6 +62,7 @@ def get_entry(version, diary_id):
     if entry == 'Diary':
         return message_to_return(404, 'Diary')
     return message_to_return(200, entry)
+
 
 @app.route('/api/<version>/entries/<int:diary_id>', methods=['PUT'])
 def modify_entry(version, diary_id):
@@ -90,7 +91,7 @@ def modify_entry(version, diary_id):
     return message_to_return(400)
 
 
-def message_to_return(status_code, optional_msg = None):
+def message_to_return(status_code, optional_msg=None):
     """
     This method returns messages depending oon the status code
     :param status_code: 
@@ -109,7 +110,7 @@ def message_to_return(status_code, optional_msg = None):
         return response
     if status_code == 409:
         response = jsonify({
-            'Conflict': optional_msg +' already exists'
+            'Conflict': optional_msg + ' already exists'
         }), 409
         return response
 
