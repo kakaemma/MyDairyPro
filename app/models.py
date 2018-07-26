@@ -32,14 +32,14 @@ class DiaryModel(object):
         This method returns all entries
         :return: 
         """
-        if len(DiaryModel.diary) >=1:
+        if len(DiaryModel.diary) >= 1:
             response = []
             for entry in DiaryModel.diary:
                 response.append({
-                'id': entry.diary_id,
-                'name': entry.name,
-                'Date created': entry.date_created,
-                'Date Modified': entry.date_modified
+                    'id': entry.diary_id,
+                    'name': entry.name,
+                    'Date created': entry.date_created,
+                    'Date Modified': entry.date_modified
                 })
             return response
 
@@ -50,15 +50,15 @@ class DiaryModel(object):
         :param diary_id: 
         :return: 
         """
-        if len(DiaryModel.diary) >=1:
+        if len(DiaryModel.diary) >= 1:
             response = []
             for entry in DiaryModel.diary:
                 if entry.diary_id == diary_id:
                     response.append({
-                    'id': entry.diary_id,
-                    'name': entry.name,
-                    'Date created': entry.date_created,
-                    'Date Modified': entry.date_modified
+                        'id': entry.diary_id,
+                        'name': entry.name,
+                        'Date created': entry.date_created,
+                        'Date Modified': entry.date_modified
                     })
                     return response
                 return 'Entry'
