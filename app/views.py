@@ -86,7 +86,7 @@ def modify_entry(version, diary_id):
                 edit_entry = DiaryModel.modify_entry(diary_id,
                                                      request.json['name'],
                                                      request.json['desc'])
-                if edit_entry == None:
+                if edit_entry is None:
                     return message_to_return(404, 'Diary or Entry')
                 if edit_entry == 'same name':
                     return message_to_return(409, 'name')
