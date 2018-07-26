@@ -17,7 +17,7 @@ class DiaryModel(object):
 
     def create_diary(self):
         """
-        Adds diary object to list
+        Adds diary entry as an object to list
         :return: 
         """
 
@@ -28,6 +28,10 @@ class DiaryModel(object):
 
     @classmethod
     def get_entries(cls):
+        """
+        This method returns all entries
+        :return: 
+        """
         if len(DiaryModel.diary) >=1:
             response = []
             for entry in DiaryModel.diary:
@@ -41,6 +45,11 @@ class DiaryModel(object):
 
     @classmethod
     def get_entry(cls, diary_id):
+        """
+        This method gets a single entry
+        :param diary_id: 
+        :return: 
+        """
         if len(DiaryModel.diary) >=1:
             response = []
             for entry in DiaryModel.diary:
@@ -58,6 +67,13 @@ class DiaryModel(object):
 
     @classmethod
     def modify_entry(cls, diary_id, name, desc):
+        """
+        This method modifies an entry
+        :param diary_id: 
+        :param name: 
+        :param desc: 
+        :return: 
+        """
         if len(DiaryModel.diary) >= 1:
             for entry in DiaryModel.diary:
                 if entry.diary_id == diary_id:
