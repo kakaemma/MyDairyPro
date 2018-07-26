@@ -23,16 +23,18 @@ def add_entries(version):
     :param version: 
     :return: 
     """
-    request.get_json(force=True)
-    if 'name' in request.json and 'desc' in request.json:
-        if request.json['name'] and request.json['desc']:
-            diary = DiaryModel(request.json['name'], request.json['desc'])
-            new_diary = diary.create_diary()
-            if new_diary is not None:
-                return message_to_return(409, 'Diary')
-            return message_to_return(201, 'Diary')
+    if version == 'v1':
+        request.get_json(force=True)
+        if 'name' in request.json and 'desc' in request.json:
+            if request.json['name'] and request.json['desc']:
+                diary = DiaryModel(request.json['name'], request.json['desc'])
+                new_diary = diary.create_diary()
+                if new_diary is not None:
+                    return message_to_return(409, 'Diary')
+                return message_to_return(201, 'Diary')
 
-    return message_to_return(400)
+        return message_to_return(400)
+    return invalid_arguments()
 
 
 @app.route('/api/<version>/entries', methods=['GET'])
@@ -42,10 +44,11 @@ def get_entries(version):
     :param version: 
     :return: 
     """
-    entries = DiaryModel.get_entries()
-    if entries is None:
-        return message_to_return(404, 'Diaries')
-    return message_to_return(200, entries)
+    if version == 'v1':
+        entries = DiaryModel.get_entries()
+        if entries is None:
+            return message_to_return(404, 'Diaries')
+        return message_to_return(200, entries)
 
 
 @app.route('/api/<version>/entries/<int:diary_id>', methods=['GET'])
@@ -56,12 +59,13 @@ def get_entry(version, diary_id):
     :param diary_id: 
     :return: 
     """
-    entry = DiaryModel.get_entry(diary_id)
-    if entry == 'Entry':
-        return message_to_return(404, 'Entry')
-    if entry == 'Diary':
-        return message_to_return(404, 'Diary')
-    return message_to_return(200, entry)
+    if version == 'v1' and isinstance(diary_id, int):
+        entry = DiaryModel.get_entry(diary_id)
+        if entry == 'Entry':
+            return message_to_return(404, 'Entry')
+        if entry == 'Diary':
+            return message_to_return(404, 'Diary')
+        return message_to_return(200, entry)
 
 
 @app.route('/api/<version>/entries/<int:diary_id>', methods=['PUT'])
@@ -72,23 +76,24 @@ def modify_entry(version, diary_id):
     :param diary_id: 
     :return: 
     """
-    request.get_json(force=True)
-    if 'name' in request.json and 'desc' in request.json:
-        if request.json['name'] and request.json['desc']:
+    if version == 'v1' and isinstance(diary_id, int):
+        request.get_json(force=True)
+        if 'name' in request.json and 'desc' in request.json:
+            if request.json['name'] and request.json['desc']:
 
-            edit_entry = DiaryModel.modify_entry(diary_id,
-                                                 request.json['name'],
-                                                 request.json['desc'])
-            if edit_entry == 'No diary':
-                return message_to_return(404, 'Diary')
-            if edit_entry == 'no entry':
-                return message_to_return(404, 'Entry')
-            if edit_entry == 'same name':
-                return message_to_return(409, 'name')
-            if edit_entry == 'modified':
-                return message_to_return(200, 'successfully modified')
+                edit_entry = DiaryModel.modify_entry(diary_id,
+                                                     request.json['name'],
+                                                     request.json['desc'])
+                if edit_entry == 'No diary':
+                    return message_to_return(404, 'Diary')
+                if edit_entry == 'no entry':
+                    return message_to_return(404, 'Entry')
+                if edit_entry == 'same name':
+                    return message_to_return(409, 'name')
+                if edit_entry == 'modified':
+                    return message_to_return(200, 'successfully modified')
 
-    return message_to_return(400)
+        return message_to_return(400)
 
 
 def message_to_return(status_code, optional_msg=None):
@@ -133,3 +138,8 @@ def message_to_return(status_code, optional_msg=None):
             'Error': optional_msg + ' not found. Add entries first',
         }), 404
         return response
+
+def invalid_arguments():
+    return jsonify({
+        'id or version error': 'Invalid parameters'
+    }), 400
