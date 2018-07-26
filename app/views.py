@@ -18,6 +18,11 @@ def index():
 
 @app.route('/api/<version>/entries', methods=['POST'])
 def add_entries(version):
+    """
+    This endpoint add an entry 
+    :param version: 
+    :return: 
+    """
     request.get_json(force=True)
     if 'name' in request.json and 'desc' in request.json:
         if request.json['name'] and request.json['desc']:
@@ -32,6 +37,11 @@ def add_entries(version):
 
 @app.route('/api/<version>/entries', methods=['GET'])
 def get_entries(version):
+    """
+    This entry gets a all entries
+    :param version: 
+    :return: 
+    """
     entries = DiaryModel.get_entries()
     if entries is None:
         return message_to_return(404, 'Diaries')
@@ -40,6 +50,12 @@ def get_entries(version):
 
 @app.route('/api/<version>/entries/<int:diary_id>', methods=['GET'])
 def get_entry(version, diary_id):
+    """
+    This endpoint gets a single entry
+    :param version: 
+    :param diary_id: 
+    :return: 
+    """
     entry = DiaryModel.get_entry(diary_id)
     if entry == 'Entry':
         return message_to_return(404, 'Entry')
@@ -49,6 +65,12 @@ def get_entry(version, diary_id):
 
 @app.route('/api/<version>/entries/<int:diary_id>', methods=['PUT'])
 def modify_entry(version, diary_id):
+    """
+    This endpoint modifies an entry
+    :param version: 
+    :param diary_id: 
+    :return: 
+    """
     request.get_json(force=True)
     if 'name' in request.json and 'desc' in request.json:
         if request.json['name'] and request.json['desc']:
@@ -69,6 +91,12 @@ def modify_entry(version, diary_id):
 
 
 def message_to_return(status_code, optional_msg = None):
+    """
+    This method returns messages depending oon the status code
+    :param status_code: 
+    :param optional_msg: 
+    :return: 
+    """
     if status_code == 201:
         response = jsonify({
             'Status': optional_msg + ' successfully added'
