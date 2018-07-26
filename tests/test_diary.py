@@ -116,7 +116,7 @@ class TestDiary(BaseClass):
                                    content_type='application/json',
                                    data=self.new_diary,
                                    )
-        self.assertIn('Diary not found', response.data.decode())
+        self.assertIn('Diary or Entry', response.data.decode())
         self.assertEqual(response.status_code, 404)
 
     def test_modify_diary_with_empty_name(self):
@@ -143,7 +143,7 @@ class TestDiary(BaseClass):
                                    content_type='application/json',
                                    data=self.edit_diary,
                                    )
-        self.assertIn('Entry not found',
+        self.assertIn('Diary or Entry',
                       response.data.decode())
         self.assertEqual(response.status_code, 404)
 
