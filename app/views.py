@@ -46,7 +46,7 @@ def get_entries(version):
     """
     if version == 'v1':
         entries = DiaryModel.get_entries()
-        if entries is None:
+        if entries is True:
             return message_to_return(404, 'Diaries')
         return message_to_return(200, entries)
     return invalid_arguments()
@@ -95,6 +95,19 @@ def modify_entry(version, diary_id):
 
         return message_to_return(400)
     return invalid_arguments()
+
+@app.route('/api/<version>/auth/signup', methods=['POST'])
+def sign_up_user(version):
+    """ This endpoint  register a user"""
+    request.get_json(force=True)
+    if 'name' in request.json and 'email' in \
+            request.json and 'password' in request.json:
+        if request.json['name'] and request.json['email']\
+                and request.json['password']:
+            pass
+
+
+
 
 
 def message_to_return(status_code, optional_msg=None):
