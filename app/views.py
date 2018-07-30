@@ -120,7 +120,17 @@ def sign_up_user(version):
             if not len(password) >=6:
                 return message_to_return(422, "password too short. Minimum is 6")
 
+            new_user = UserModel()
+            check_user = UserModel.check_if_user_exists_using_email(email)
+            if check_user:
+                return jsonify({
+                    "Conflict": "User already exists"
+                }), 409
+            new_user.register_user(name ,email,password)
+            return message_to_return(201, request.json['email'])
+        return message_to_return(422, "Missing fields")
 
+    return invalid_arguments()
 
 
 
