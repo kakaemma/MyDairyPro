@@ -32,5 +32,20 @@ class BaseClass(unittest.TestCase):
             'email': 'kakaemma',
             'password': '123456'
         })
+        self.short_password = json.dumps({
+            'name': 'Kakaire',
+            'email': 'kakaemma@gmail.com',
+            'password': '1234'
+        })
+        self.user = json.dumps({
+            'name': 'Kakaire',
+            'email': 'kakaemma@gmail.com',
+            'password': '1234567'
+        })
+        self.new_user = json.dumps({
+            'name': 'Kakaire',
+            'email': 'kakaemma1@gmail.com',
+            'password': '1234567'
+        })
     def tearDown(self):
         DiaryModel.diary = []
