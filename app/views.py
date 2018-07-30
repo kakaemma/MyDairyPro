@@ -65,9 +65,7 @@ def get_entry(version, diary_id):
         entry = DiaryModel.get_entry(diary_id)
         if entry == []:
             return message_to_return(404, 'Entry')
-        if entry == 'Diary':
-            return message_to_return(404, 'Diary')
-        return message_to_return(200, entry)
+
     return invalid_arguments()
 
 
@@ -128,7 +126,7 @@ def sign_up_user(version):
                 }), 409
             new_user.register_user(name ,email,password)
             return message_to_return(201, request.json['email'])
-        return message_to_return(422, "Missing fields")
+        return message_to_return(422, "Missing values")
 
     return invalid_arguments()
 
