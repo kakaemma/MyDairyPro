@@ -104,6 +104,7 @@ def sign_up_user(version):
             request.json and 'password' in request.json:
         if request.json['name'] and request.json['email']\
                 and request.json['password']:
+
             pass
 
 
