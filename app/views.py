@@ -131,6 +131,20 @@ def sign_up_user(version):
     return invalid_arguments()
 
 
+@app.route('/api/<version>/auth/login', methods=['POST'])
+def login(version):
+    request.get_json(force=True)
+    if 'email' in request.json and 'password' in request.json:
+        email = request.json['email']
+        password = request.json['password']
+        if email and password:
+            pass
+        return message_to_return(400)
+    return message_to_return(400)
+
+
+
+
 
 
 
