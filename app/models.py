@@ -1,4 +1,26 @@
 import datetime
+from database import  DatabaseConnection
+
+connection = DatabaseConnection()
+
+class UserModel(object):
+
+
+    @staticmethod
+    def register_user(name, email, password):
+        register_user_query = " INSERT INTO users(name, email, password) VALUES (%s,%s,%s)"
+        connection.cursor.execute(register_user_query,(name, email, password))
+
+    @staticmethod
+    def check_if_user_exists_using_email(email):
+        query_for_checking_email = "SELECT email FROM users WHERE email=%s"
+        connection.cursor.execute(query_for_checking_email, [email])
+        row = connection.cursor.fetchone()
+        return row
+
+
+
+
 
 
 class DiaryModel(object):
@@ -14,6 +36,7 @@ class DiaryModel(object):
         self.desc = desc
         self.date_created = datetime.datetime.utcnow()
         self.date_modified = None
+        self.date_modified = None
 
     def create_diary(self):
         """
@@ -23,7 +46,7 @@ class DiaryModel(object):
 
         for this_diary in DiaryModel.diary:
             if this_diary.name == self.name:
-                return self.name
+                return True
         DiaryModel.diary.append(self)
 
     @classmethod
