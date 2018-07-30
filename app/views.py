@@ -195,5 +195,5 @@ def message_to_return(status_code, optional_msg=None):
 
 def invalid_arguments():
     return jsonify({
-        'id or version error': 'Invalid parameters'
+        'Error': 'Invalid parameters'
     }), 400
