@@ -31,7 +31,7 @@ class DatabaseConnection():
                                        date_modified TIMESTAMP, 
                                        FOREIGN KEY (user_id)REFERENCES 
                                        users (user_id));""")
-        
+
         self.cursor.execute(create_table_query_for_entries)
 
 
