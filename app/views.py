@@ -115,6 +115,11 @@ def sign_up_user(version):
         if name and email  and password:
             if not validate_email(email):
                 return message_to_return(422, "Invalid Email address")
+            if not len(name) >=3:
+                return message_to_return(422, "Name too short")
+            if not len(password) >=6:
+                return message_to_return(422, "password too short. Minimum is 6")
+
 
 
 
