@@ -1,5 +1,6 @@
+from validate_email import validate_email
 from flask import jsonify, request, render_template
-from app.models import DiaryModel
+from app.models import DiaryModel,UserModel
 from app import create_app
 
 
@@ -98,14 +99,25 @@ def modify_entry(version, diary_id):
 
 @app.route('/api/<version>/auth/signup', methods=['POST'])
 def sign_up_user(version):
-    """ This endpoint  register a user"""
+    """
+    This end point registers a user
+    :param version: 
+    :return: user added and status code 201 on success
+    """
     request.get_json(force=True)
     if 'name' in request.json and 'email' in \
             request.json and 'password' in request.json:
-        if request.json['name'] and request.json['email']\
-                and request.json['password']:
 
-            pass
+        name =request.json['name']
+        email = request.json['email']
+        password = request.json['password']
+
+        if name and email  and password:
+            if not validate_email(email):
+                return message_to_return(422, "Invalid Email address")
+
+
+
 
 
 
