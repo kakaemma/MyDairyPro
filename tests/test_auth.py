@@ -55,6 +55,6 @@ class TestAuth(BaseClass):
         response = self.client.post('/api/v1/auth/signup',
                                     content_type='application/json',
                                     data=self.empty_login)
-        self.assertIn('Missing login value(s)',
+        self.assertIn('Invalid parameters',
                       response.data.decode())
-        self.assertEqual(response.status_code, 422)
+        self.assertEqual(response.status_code, 400)
