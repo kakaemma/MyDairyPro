@@ -47,3 +47,14 @@ class TestAuth(BaseClass):
         self.assertIn('already exists', response.data.decode())
         self.assertEqual(response.status_code, 409)
 
+    def test_login_without_values(self):
+        """ Should return missing login values"""
+        self.client.post('/api/v1/auth/signup',
+                         content_type='application/json',
+                                    data=self.user)
+        response = self.client.post('/api/v1/auth/signup',
+                                    content_type='application/json',
+                                    data=self.empty_login)
+        self.assertIn('Missing login value(s)',
+                      response.data.decode())
+        self.assertEqual(response.status_code, 422)
