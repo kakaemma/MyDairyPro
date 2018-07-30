@@ -22,5 +22,15 @@ class BaseClass(unittest.TestCase):
             'name':'World class developer',
             'desc': 'Attend boot camp'
         })
+        self.empty_reg = json.dumps({
+            'name': '',
+            'email': '',
+            'password': ''
+        })
+        self.invalid_email = json.dumps({
+            'name': 'Kakaire',
+            'email': 'kakaemma',
+            'password': '123456'
+        })
     def tearDown(self):
         DiaryModel.diary = []
