@@ -46,3 +46,4 @@ class TestAuth(BaseClass):
                                     data=self.user)
         self.assertIn('already exists', response.data.decode())
         self.assertEqual(response.status_code, 409)
+
