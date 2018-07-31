@@ -1,5 +1,5 @@
 import jwt
-from datetime import datetime
+import datetime
 from functools import wraps
 from flask import request, jsonify
 
@@ -33,5 +33,13 @@ def validate_content_type(function):
     return decorated_method
 
 def generate_token(user_id):
-
-
+    try:
+        payload = {
+            "exp":datetime.datetime.utcnow() + datetime.timedelta(minutes=10),
+            "iat":datetime.datetime.utcnow(),
+            "sub":user_id
+            }
+        auth_token = jwt.encode( payload,'TEAM TIA', algorithm='HS256' )
+        return auth_token
+    except Exception as exc:
+        return exc
