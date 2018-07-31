@@ -2,7 +2,8 @@ import jwt
 import datetime
 from functools import wraps
 from flask import request, jsonify
-
+from database import  DatabaseConnection
+from app.models import UserModel
 
 def get_token():
     try:
@@ -43,3 +44,40 @@ def generate_token(user_id):
         return auth_token
     except Exception as exc:
         return exc
+
+def decode_token(token):
+    try:
+        payload = jwt.decode(token, 'TEAM TIA')
+        user = payload['sub']
+        return user
+
+    except jwt.ExpiredSignature:
+        response = jsonify({'Error': 'Token expired please login again'})
+        response.status_code = 401
+        return response
+
+    except jwt.InvalidTokenError:
+        response = jsonify({'Error':  'Invalid token'})
+        response.status_code = 401
+        return response
+
+def validate_token(function):
+    @wraps()
+    def decorated_method(function, *args, **kwargs):
+        token = get_token()
+        if token is None:
+            return jsonify({
+                "Error": "There is no token in the header"
+            }),401
+        try:
+            user_id = decode_token(token)
+            search_for_user_with_id = UserModel.get_user_by_id(user_id)
+            if search_for_user_with_id is None:
+                return jsonify({
+                    'Error': 'Mismatching or wrong token'
+                }),401
+        except Exception as exc:
+            return exc
+
+        return select_method_to_return(function, *args, **kwargs)
+    return decorated_method
