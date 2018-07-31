@@ -80,6 +80,7 @@ class TestAuth(BaseClass):
 
 
     def test_successful_login(self):
+        """ Test for user login successful"""
         self.client.post('/api/v1/auth/signup',
                          content_type='application/json',
                          data=self.user)
@@ -91,6 +92,7 @@ class TestAuth(BaseClass):
         self.assertEqual(response.status_code, 200)
 
     def test_successful_login_with_invalid_parameters(self):
+        """Test for login with invalid parameters"""
         self.client.post('/api/v1/auth/signup',
                          content_type='application/json',
                          data=self.user)
