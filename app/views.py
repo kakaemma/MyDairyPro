@@ -141,22 +141,13 @@ def login(version):
             login = UserModel.check_if_is_valid_user(email, password)
             if login:
                 return jsonify({
-                    'status': "Login successfull",
+                    'status': "Login successful",
                     "token": "token"
 
-                })
+                }), 200
             return invalid_user()
         return message_to_return(400)
-    print(request.json['email'])
-    return message_to_return(400)
-
-
-
-
-
-
-
-
+    return invalid_arguments()
 
 def message_to_return(status_code, optional_msg=None):
     """
