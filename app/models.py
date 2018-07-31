@@ -25,10 +25,12 @@ class UserModel(object):
         row = connection.cursor.fetchone()
         return row
 
-
-
-
-
+    @staticmethod
+    def get_user_by_id(user_id):
+        query_to_search_user = "SELECT id FROM users WHERE id=%s"
+        connection.cursor.execute(query_to_search_user,[user_id])
+        row = connection.cursor.fetchone()
+        return row
 
 
 class DiaryModel(object):
