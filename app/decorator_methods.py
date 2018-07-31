@@ -2,7 +2,6 @@ import jwt
 import datetime
 from functools import wraps
 from flask import request, jsonify
-from database import  DatabaseConnection
 from app.models import UserModel
 
 def get_token():
