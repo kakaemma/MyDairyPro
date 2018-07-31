@@ -48,12 +48,18 @@ class BaseClass(unittest.TestCase):
         })
         self.new_user = json.dumps({
             'name': 'Kakaire',
-            'email': 'kakaemma1@gmail.com',
+            'email': 'kakazzzzzz@gmail.com',
             'password': '1234567'
         })
         self.empty_login = json.dumps({
             'email':'',
             'password':''
         })
+        self.invalid_user = json.dumps({
+            'email':'wrong@kk.cc',
+            'password':'123456'
+        })
     def tearDown(self):
+        db = DatabaseConnection()
+        db.drop_table('users')
         DiaryModel.diary = []
