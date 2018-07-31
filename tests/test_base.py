@@ -51,6 +51,11 @@ class BaseClass(unittest.TestCase):
             'email': 'kakazzzzzz@gmail.com',
             'password': '1234567'
         })
+        self.new_user_with_ivalid_param = json.dumps({
+            'name': 'Kakaire',
+            'emadil': 'kakazzzzzz@gmail.com',
+            'password': '1234567'
+        })
         self.empty_login = json.dumps({
             'email':'',
             'password':''
@@ -58,6 +63,14 @@ class BaseClass(unittest.TestCase):
         self.invalid_user = json.dumps({
             'email':'wrong@kk.cc',
             'password':'123456'
+        })
+        self.valid_user = json.dumps({
+            'email': 'kakaemma@gmail.com',
+            'password': '1234567'
+        })
+        self.params = json.dumps({
+            'emasil': 'kakaemma@gmail.com',
+            'password': '1234567'
         })
     def tearDown(self):
         db = DatabaseConnection()
