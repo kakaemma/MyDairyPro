@@ -32,7 +32,6 @@ class TestAuth(BaseClass):
         response = self.client.post('/api/v1/auth/signup',
                                     content_type='application/json',
                                     data=self.new_user)
-        print(response.data)
         self.assertIn('successfully added',
                       response.data.decode())
         self.assertEqual(response.status_code, 201)
@@ -48,8 +47,17 @@ class TestAuth(BaseClass):
         self.assertIn('already exists', response.data.decode())
         self.assertEqual(response.status_code, 409)
 
+    def test_registration_with_invalid_parameters(self):
+        """ Should return invalid parameters and status code 400"""
+        response = self.client.post('/api/v1/auth/signup',
+                                    content_type='application/json',
+                                    data=self.new_user_with_ivalid_param)
+        self.assertIn('Invalid parameters',
+                      response.data.decode())
+        self.assertEqual(response.status_code, 400)
+
     def test_login_without_values(self):
-        """ Should return missing login values"""
+        """ Should return Invalid parameters"""
         self.client.post('/api/v1/auth/signup',
                          content_type='application/json',
                                     data=self.user)
@@ -61,12 +69,36 @@ class TestAuth(BaseClass):
         self.assertEqual(response.status_code, 400)
 
     def test_login_with_invalid_user(self):
-        """ Test """
+        """ Should return invalid user and status code 401"""
 
-        response = self.client.post('/api/v1/auth/signup',
+        response = self.client.post('/api/v1/auth/login',
                                     content_type='application/json',
                                     data=self.invalid_user)
+        self.assertIn('Invalid user',
+                      response.data.decode())
+        self.assertEqual(response.status_code, 401)
+
+
+    def test_successful_login(self):
+        self.client.post('/api/v1/auth/signup',
+                         content_type='application/json',
+                         data=self.user)
+        response = self.client.post('/api/v1/auth/login',
+                                    content_type='application/json',
+                                    data=self.valid_user)
+        self.assertIn('Login successful',
+                      response.data.decode())
+        self.assertEqual(response.status_code, 200)
+
+    def test_successful_login_with_invalid_parameters(self):
+        self.client.post('/api/v1/auth/signup',
+                         content_type='application/json',
+                         data=self.user)
+        response = self.client.post('/api/v1/auth/login',
+                                    content_type='application/json',
+                                    data=self.params)
         self.assertIn('Invalid parameters',
                       response.data.decode())
         self.assertEqual(response.status_code, 400)
+
 
