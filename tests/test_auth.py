@@ -32,6 +32,7 @@ class TestAuth(BaseClass):
         response = self.client.post('/api/v1/auth/signup',
                                     content_type='application/json',
                                     data=self.new_user)
+        print(response.data)
         self.assertIn('successfully added',
                       response.data.decode())
         self.assertEqual(response.status_code, 201)
@@ -58,3 +59,14 @@ class TestAuth(BaseClass):
         self.assertIn('Invalid parameters',
                       response.data.decode())
         self.assertEqual(response.status_code, 400)
+
+    def test_login_with_invalid_user(self):
+        """ Test """
+
+        response = self.client.post('/api/v1/auth/signup',
+                                    content_type='application/json',
+                                    data=self.invalid_user)
+        self.assertIn('Invalid parameters',
+                      response.data.decode())
+        self.assertEqual(response.status_code, 400)
+
