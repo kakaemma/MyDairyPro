@@ -10,13 +10,16 @@ class MainConfiguration(object):
 class DevelopmentEnvironment(MainConfiguration):
     """ Configurations for development"""
     DEBUG = True
+    DATABASE = 'mydiary_pro'
+    USER = 'admin'
+    HOST ='localhost'
+    PASSWORD = 'admin'
 
 
 class TestingEnvironment(MainConfiguration):
     """ Configurations for Testing environment"""
     DEBUG = True
     TESTING = True
-    DATABASE_URI = 'postgresql://localhost/test_db'
 
 
 class StagingEnvironment(MainConfiguration):
