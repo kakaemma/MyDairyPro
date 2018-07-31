@@ -1,6 +1,7 @@
 from psycopg2 import connect,DatabaseError
 from pprint import pprint
 
+
 class DatabaseConnection():
 
     def __init__(self):
@@ -32,8 +33,8 @@ class DatabaseConnection():
         self.cursor.execute(create_table_query_for_entries)
         self.cursor.execute(create_table_query_for_users)
 
-    def trancate_table(self, table_name):
-        self.cursor.execute("TRUNCATE TABLE{} RESTART IDENTITY CASCADE"
+    def drop_table(self, table_name):
+        self.cursor.execute("TRUNCATE TABLE {} RESTART IDENTITY CASCADE"
                             .format(table_name))
 
 
