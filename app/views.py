@@ -4,7 +4,7 @@ from app.models import DiaryModel,UserModel
 from app import create_app
 
 
-app = create_app('TestingEnv')
+app = create_app('DevelopmentEnv')
 
 
 @app.route('/')
@@ -138,8 +138,16 @@ def login(version):
         email = request.json['email']
         password = request.json['password']
         if email and password:
-            pass
+            login = UserModel.check_if_is_valid_user(email, password)
+            if login:
+                return jsonify({
+                    'status': "Login successfull",
+                    "token": "token"
+
+                })
+            return invalid_user()
         return message_to_return(400)
+    print(request.json['email'])
     return message_to_return(400)
 
 
@@ -197,3 +205,8 @@ def invalid_arguments():
     return jsonify({
         'Error': 'Invalid parameters'
     }), 400
+
+def invalid_user():
+    return jsonify({
+        'Error': 'Invalid user'
+    }), 401
