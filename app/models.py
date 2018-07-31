@@ -18,6 +18,14 @@ class UserModel(object):
         row = connection.cursor.fetchone()
         return row
 
+    @staticmethod
+    def check_if_is_valid_user(email, password):
+        query_to_check_for_user = "SELECT * FROM users WHERE email=%s AND password=%s "
+        connection.cursor.execute(query_to_check_for_user, (email, password))
+        row = connection.cursor.fetchone()
+        return row
+
+
 
 
 
