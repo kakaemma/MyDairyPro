@@ -2,6 +2,7 @@ from validate_email import validate_email
 from flask import jsonify, request, render_template
 from app.models import DiaryModel,UserModel
 from app import create_app
+from app.decorator_methods import generate_token
 
 
 app = create_app('DevelopmentEnv')
@@ -138,11 +139,11 @@ def login(version):
         email = request.json['email']
         password = request.json['password']
         if email and password:
-            login = UserModel.check_if_is_valid_user(email, password)
-            if login:
+            login_id = UserModel.check_if_is_valid_user(email, password)
+            if login_id:
                 return jsonify({
                     'status': "Login successful",
-                    "token": "token"
+                    "token": generate_token(login_id)
 
                 }), 200
             return invalid_user()
