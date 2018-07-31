@@ -143,7 +143,7 @@ def login(version):
             if login_id:
                 return jsonify({
                     'status': "Login successful",
-                    "token": generate_token(login_id)
+                    "token": generate_token(login_id).decode()
 
                 }), 200
             return invalid_user()
