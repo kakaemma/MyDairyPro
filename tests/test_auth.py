@@ -102,5 +102,3 @@ class TestAuth(BaseClass):
         self.assertIn('Invalid parameters',
                       response.data.decode())
         self.assertEqual(response.status_code, 400)
-
-
