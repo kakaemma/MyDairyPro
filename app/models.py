@@ -20,10 +20,16 @@ class UserModel(object):
 
     @staticmethod
     def check_if_is_valid_user(email, password):
-        query_to_check_for_user = "SELECT id FROM users WHERE email=%s AND password=%s "
-        connection.cursor.execute(query_to_check_for_user, (email, password))
-        row = connection.cursor.fetchone()
-        return row
+        try:
+            query_to_check_for_user = "SELECT user_id FROM users WHERE email=%s AND password=%s "
+            connection.cursor.execute(query_to_check_for_user, (email, password))
+            row = connection.cursor.fetchone()
+            return row
+        except Exception as exc:
+            print(exc)
+
+
+
 
     @staticmethod
     def get_user_by_id(user_id):
