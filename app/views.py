@@ -62,10 +62,11 @@ def get_entry(version, diary_id):
     :param diary_id: 
     :return: 
     """
-    if version == 'v1' and isinstance(diary_id, int):
-        entry = DiaryModel.get_entry(diary_id, user_id)
-        if entry == []:
+    if version == 'v1':
+        entry = DiaryModel.get_entry(diary_id, user_id='1')
+        if entry is False:
             return message_to_return(404, 'Entry')
+        return message_to_return(200, entry)
 
     return invalid_arguments()
 
