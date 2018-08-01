@@ -28,7 +28,7 @@ class DatabaseConnection():
                      password VARCHAR(20) NOT NULL); """
                                         )
 
-        self.connection.cursor.execute(create_table_query_for_users)
+        self.cursor.execute(create_table_query_for_users)
         self.cursor.execute(create_table_query_for_entries)
 
 
