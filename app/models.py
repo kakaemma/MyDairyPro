@@ -118,7 +118,7 @@ class DiaryModel(object):
 
 
     @classmethod
-    def modify_entry(cls, diary_id, name, desc):
+    def modify_entry(cls, diary_id, name, desc, user_id):
         """
         This method modifies an entry
         :param diary_id: 
@@ -126,13 +126,17 @@ class DiaryModel(object):
         :param desc: 
         :return: 
         """
-        if len(DiaryModel.diary) >= 1:
+        query_to_search_entry = "SELECT * FROM entries WHERE diary_id=%s AND user_id=%s"
+        connection.cursor.execute(query_to_search_entry, (diary_id, user_id))
+        row = connection.cursor.fetchone()
+        if not row:
+            return False
+        if row[1] == name:
+            return 'update with same name'
 
-            for entry in DiaryModel.diary:
-                if entry.diary_id == diary_id:
-                    if entry.name == name:
-                        return 'same name'
-                    entry.name = name
-                    entry.dec = desc
-                    entry.date_modified = datetime.datetime.utcnow()
-                    return 'modified'
+        query_to_update = "UPDATE entries SET name=%s, description=%s WHERE user_id=%s AND diary_id=%s"
+        connection.cursor.execute(query_to_update,(name,desc,user_id,diary_id))
+        row_updated = connection.cursor.rowcount
+        return row_updated
+
+
