@@ -92,26 +92,30 @@ class DiaryModel(object):
 
 
     @staticmethod
-    def get_entry(search_id):
+    def get_entry(search_id, user_id):
         """
         This method gets a single entry
         :param diary_id: 
         :return: 
         """
-        if len(DiaryModel.diary) >= 1:
-            response = []
-            for entry in DiaryModel.diary:
-                if entry.diary_id == search_id:
-                    response.append({
-                            'id': entry.diary_id,
-                            'name': entry.name,
-                            'Description': entry.desc,
-                            'Date created': entry.date_created,
-                            'Date Modified': entry.date_modified
-                        })
-
+        try:
+            query_to_get_single_entry = "SELECT * FROM entries WHERE diary_id=%s AND user_id=%s"
+            connection.cursor.execute(query_to_get_single_entry, (search_id, user_id))
+            row = connection.cursor.fetchone()
+            if not row:
+                return False
+            response =[]
+            response.append({
+                    'id': row[0],
+                    'name': row[1],
+                    'Description': row[2],
+                    'Date created': row[3],
+                    'Date Modified': row[4]
+                })
             return response
-        return 'Diary'
+        except Exception as exc:
+            print(exc)
+
 
     @classmethod
     def modify_entry(cls, diary_id, name, desc):
