@@ -72,7 +72,35 @@ class BaseClass(unittest.TestCase):
             'emasil': 'kakaemma@gmail.com',
             'password': '1234567'
         })
+        self.empty_diary = json.dumps({
+            'name': ''
+        })
+        self.new_diary = json.dumps({
+            'name': 'Uganda rally 2018',
+            'desc': 'wining rally'
+        })
+        self.new_diary_2 = json.dumps({
+            'name': 'Uganda rally 2018',
+            'desc': 'wining rally'
+        })
+        self.edit_diary = json.dumps({
+            'name': 'Pearl rally 2018',
+            'desc': 'Winn pearl'
+        })
+        self.empty_desc = json.dumps({
+            'desc': ''
+        })
+        self.short_desc = json.dumps({
+            'desc': 'Andela'
+        })
+        self.desc = json.dumps({
+            'desc': 'Andela Uganda cohort 10 boot camp'
+        })
+        self.desc2 = json.dumps({
+            'desc': 'Andela Uganda cohort 10 boot camp week one'
+        })
+
     def tearDown(self):
         db = DatabaseConnection()
         db.drop_table('users')
-        DiaryModel.diary = []
+        db.drop_table('entries')
