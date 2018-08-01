@@ -30,7 +30,7 @@ class DatabaseConnection():
                      password VARCHAR(20) NOT NULL); """
                                         )
 
-        self.cursor.execute(create_table_query_for_users)
+        self.connection.cursor.execute(create_table_query_for_users)
         self.cursor.execute(create_table_query_for_entries)
 
 
