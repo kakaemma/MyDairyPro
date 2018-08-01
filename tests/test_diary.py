@@ -115,88 +115,98 @@ class TestDiary(BaseClass):
         self.assertIn('Diary entries', response.data.decode())
         self.assertEqual(response.status_code, 200)
 
-    # def test_get_single_diary_with_wrong_parameters(self):
-    #     """ Should return Invalid parameters"""
-    #     self.client.post('/api/v1/entries',
-    #                      content_type='application/json',
-    #                      data=self.new_diary,
-    #                      )
-    #     response = self.client.get('/api/v2/entries/1')
-    #     self.assertIn('Invalid parameters', response.data.decode())
-    #     self.assertEqual(response.status_code, 400)
+    def test_get_single_diary_with_wrong_parameters(self):
+        """ Should return Invalid parameters"""
+        self.client.post('/api/v1/entries',
+                         content_type='application/json',
+                         data=self.new_diary,
+                         )
+        response = self.client.get('/api/v2/entries/1')
+        self.assertIn('Invalid parameters', response.data.decode())
+        self.assertEqual(response.status_code, 400)
 
-    # def test_modify_diary_on_empty_diary(self):
-    #     """ Test editing when diary is empty"""
-    #     response = self.client.put('/api/v1/entries/1',
-    #                                content_type='application/json',
-    #                                data=self.new_diary,
-    #                                )
-    #     self.assertIn('Diary or Entry', response.data.decode())
-    #     self.assertEqual(response.status_code, 404)
-    #
-    # def test_modify_diary_with_empty_name(self):
-    #     """ Tests editing with empty values"""
-    #     self.client.post('/api/v1/entries',
-    #                      content_type='application/json',
-    #                      data=self.new_diary,
-    #                      )
-    #     response = self.client.put('/api/v1/entries/1',
-    #                                content_type='application/json',
-    #                                data=self.empty_diary,
-    #                                )
-    #     self.assertIn('Missing or bad parameter submitted',
-    #                   response.data.decode())
-    #     self.assertEqual(response.status_code, 400)
-    #
-    # def test_modify_diary_with_wrong_id(self):
-    #     """ Should return entry not found"""
-    #     self.client.post('/api/v1/entries',
-    #                      content_type='application/json',
-    #                      data=self.new_diary,
-    #                      )
-    #     response = self.client.put('/api/v1/entries/2',
-    #                                content_type='application/json',
-    #                                data=self.edit_diary,
-    #                                )
-    #     self.assertIn('Diary or Entry',
-    #                   response.data.decode())
-    #     self.assertEqual(response.status_code, 404)
-    #
-    # def test_modify_diary_with_same_name(self):
-    #     """ Should return name exists if editing with same name"""
-    #     self.client.post('/api/v1/entries',
-    #                      content_type='application/json',
-    #                      data=self.new_diary,
-    #                      )
-    #     response = self.client.put('/api/v1/entries/1',
-    #                                content_type='application/json',
-    #                                data=self.new_diary,
-    #                                )
-    #     self.assertIn('name already exists', response.data.decode())
-    #     self.assertEqual(response.status_code, 409)
-    #
-    # def test_modify_diary_with_wrong_parameters(self):
-    #     """ Should return Invalid parameters"""
-    #     self.client.post('/api/v1/entries',
-    #                      content_type='application/json',
-    #                      data=self.new_diary,
-    #                      )
-    #     response = self.client.put('/api/v2/entries/1',
-    #                                content_type='application/json',
-    #                                data=self.edit_diary,
-    #                                )
-    #     self.assertIn('Invalid parameters', response.data.decode())
-    #     self.assertEqual(response.status_code, 400)
-    #
-    # def test_modify_diary_successfully(self):
-    #     """ Should return successfully modified"""
-    #     self.client.post('/api/v1/entries',
-    #                      content_type='application/json',
-    #                      data=self.new_diary,
-    #                      )
-    #     response = self.client.put('/api/v1/entries/1',
-    #                                content_type='application/json',
-    #                                data=self.edit_diary,
-    #                                )
-    #     self.assertIn('successfully modified', response.data.decode())
-    #     self.assertEqual(response.status_code, 200)
+    def test_modify_diary_on_empty_diary(self):
+        """ Test editing when diary is empty"""
+        response = self.client.put('/api/v1/entries/1',
+                                   content_type='application/json',
+                                   data=self.new_diary,
+                                   )
+        self.assertIn('Diary or Entry', response.data.decode())
+        self.assertEqual(response.status_code, 404)
+
+    def test_modify_diary_with_empty_name(self):
+        """ Tests editing with empty values"""
+        self.client.post('/api/v1/entries',
+                         content_type='application/json',
+                         data=self.new_diary,
+                         )
+        response = self.client.put('/api/v1/entries/1',
+                                   content_type='application/json',
+                                   data=self.empty_diary,
+                                   )
+        self.assertIn('Missing or bad parameter submitted',
+                      response.data.decode())
+        self.assertEqual(response.status_code, 400)
+
+    def test_modify_diary_with_wrong_id(self):
+        """ Should return entry not found"""
+        self.client.post('/api/v1/auth/signup',
+                         content_type='application/json',
+                         data=self.new_user)
+
+        self.client.post('/api/v1/entries',
+                         content_type='application/json',
+                         data=self.new_diary,
+                         )
+        response = self.client.put('/api/v1/entries/2',
+                                   content_type='application/json',
+                                   data=self.edit_diary,
+                                   )
+        self.assertIn('Diary or Entry',
+                      response.data.decode())
+        self.assertEqual(response.status_code, 404)
+
+    def test_modify_diary_with_same_name(self):
+        """ Should return name exists if editing with same name"""
+        self.client.post('/api/v1/auth/signup',
+                         content_type='application/json',
+                         data=self.new_user)
+        self.client.post('/api/v1/entries',
+                         content_type='application/json',
+                         data=self.new_diary,
+                         )
+        response = self.client.put('/api/v1/entries/1',
+                                   content_type='application/json',
+                                   data=self.new_diary,
+                                   )
+        self.assertIn('name already exists', response.data.decode())
+        self.assertEqual(response.status_code, 409)
+
+    def test_modify_diary_with_wrong_parameters(self):
+        """ Should return Invalid parameters"""
+        self.client.post('/api/v1/entries',
+                         content_type='application/json',
+                         data=self.new_diary,
+                         )
+        response = self.client.put('/api/v2/entries/1',
+                                   content_type='application/json',
+                                   data=self.edit_diary,
+                                   )
+        self.assertIn('Invalid parameters', response.data.decode())
+        self.assertEqual(response.status_code, 400)
+
+    def test_modify_diary_successfully(self):
+        """ Should return successfully modified"""
+        self.client.post('/api/v1/auth/signup',
+                         content_type='application/json',
+                         data=self.new_user)
+        self.client.post('/api/v1/entries',
+                         content_type='application/json',
+                         data=self.new_diary,
+                         )
+        response = self.client.put('/api/v1/entries/1',
+                                   content_type='application/json',
+                                   data=self.edit_diary,
+                                   )
+        self.assertIn('successfully modified', response.data.decode())
+        self.assertEqual(response.status_code, 200)
