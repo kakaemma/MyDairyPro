@@ -2,6 +2,7 @@ import datetime
 from database import  DatabaseConnection
 
 connection = DatabaseConnection()
+login_id =0
 
 class UserModel(object):
 
@@ -33,10 +34,14 @@ class UserModel(object):
 
     @staticmethod
     def get_user_by_id(user_id):
-        query_to_search_user = "SELECT id FROM users WHERE id=%s"
-        connection.cursor.execute(query_to_search_user,[user_id])
-        row = connection.cursor.fetchone()
-        return row
+        try:
+            query_to_search_user = "SELECT user_id FROM users WHERE user_id=%s"
+            connection.cursor.execute(query_to_search_user,[user_id])
+            row = connection.cursor.fetchone()
+            return row
+        except Exception as exc:
+            print(exc)
+
 
 
 class DiaryModel(object):
@@ -79,13 +84,15 @@ class DiaryModel(object):
         query_to_get_all_entres = 'SELECT * FROM entries WHERE user_id=%s'
         connection.cursor.execute(query_to_get_all_entres,[user_id])
         rows = connection.cursor.fetchall()
+        if not rows:
+            return False
         for row in rows:
             response.append({
                 'id': row[0],
                 'name': row[1],
                 'Description': row[2],
-                'Date created': row[3],
-                'Date Modified': row[4]
+                'Date created': row[4],
+                'Date Modified': row[5]
             })
         return response
 
@@ -109,8 +116,8 @@ class DiaryModel(object):
                     'id': row[0],
                     'name': row[1],
                     'Description': row[2],
-                    'Date created': row[3],
-                    'Date Modified': row[4]
+                    'Date created': row[4],
+                    'Date Modified': row[5]
                 })
             return response
         except Exception as exc:
