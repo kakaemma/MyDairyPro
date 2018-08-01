@@ -3,7 +3,7 @@ import datetime
 from functools import wraps
 from flask import request, jsonify
 from app.models import UserModel
-
+logged_in_user = None
 def get_token():
     try:
         token = request.headers.get('Authorization')
@@ -75,6 +75,7 @@ def validate_token(function):
                 return jsonify({
                     'Error': 'Mismatching or wrong token'
                 }),401
+            logged_in_user = user_id
         except Exception as exc:
             return exc
 
