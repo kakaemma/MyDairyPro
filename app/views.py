@@ -29,7 +29,7 @@ def add_entries(version):
         request.get_json(force=True)
         if 'name' in request.json and 'desc' in request.json:
             if request.json['name'] and request.json['desc']:
-                diary = DiaryModel(request.json['name'], request.json['desc'])
+                diary = DiaryModel(request.json['name'], request.json['desc'],user_id='1')
                 new_diary = diary.create_diary()
                 if new_diary is not None:
                     return message_to_return(409, 'Diary')
@@ -47,8 +47,8 @@ def get_entries(version):
     :return: 
     """
     if version == 'v1':
-        entries = DiaryModel.get_entries()
-        if entries is True:
+        entries = DiaryModel.get_entries(user_id='2')
+        if len(entries) ==0:
             return message_to_return(404, 'Diaries')
         return message_to_return(200, entries)
     return invalid_arguments()
