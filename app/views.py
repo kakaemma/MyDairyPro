@@ -59,7 +59,7 @@ def get_entries(version):
         user_id = decode_token(token)
         print(user_id)
         entries = DiaryModel.get_entries(str(user_id))
-        if len(entries) ==0:
+        if entries is False:
             return message_to_return(404, 'Diaries')
         return message_to_return(200, entries)
     return invalid_arguments()
