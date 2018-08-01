@@ -47,7 +47,7 @@ def get_entries(version):
     :return: 
     """
     if version == 'v1':
-        entries = DiaryModel.get_entries(user_id='2')
+        entries = DiaryModel.get_entries(user_id='1')
         if len(entries) ==0:
             return message_to_return(404, 'Diaries')
         return message_to_return(200, entries)
@@ -63,7 +63,7 @@ def get_entry(version, diary_id):
     :return: 
     """
     if version == 'v1' and isinstance(diary_id, int):
-        entry = DiaryModel.get_entry(diary_id)
+        entry = DiaryModel.get_entry(diary_id, user_id)
         if entry == []:
             return message_to_return(404, 'Entry')
 
