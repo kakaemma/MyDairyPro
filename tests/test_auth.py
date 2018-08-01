@@ -24,7 +24,7 @@ class TestAuth(BaseClass):
         response = self.client.post('/api/v1/auth/signup',
                                     content_type='application/json',
                                     data=self.short_password)
-        self.assertIn('Unprocessable entity', response.data.decode())
+        self.assertIn('Missing or bad parameter', response.data.decode())
         self.assertEqual(response.status_code, 400)
 
     def test_successful_registration(self):
