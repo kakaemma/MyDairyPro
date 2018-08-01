@@ -1,5 +1,5 @@
-from psycopg2 import connect,DatabaseError
-from pprint import pprint
+from psycopg2 import connect
+
 
 
 class DatabaseConnection():
@@ -10,7 +10,7 @@ class DatabaseConnection():
             self.connection.autocommit = True
             self.cursor = self.connection.cursor()
         except:
-            pprint("Can not connect to the database")
+            print("Can not connect to the database")
 
 
     def create_tables(self):
