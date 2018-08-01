@@ -1,11 +1,14 @@
 from validate_email import validate_email
 from flask import jsonify, request, render_template
-from app.models import DiaryModel,UserModel
+from app.models import DiaryModel,UserModel,login_id
 from app import create_app
-from app.decorator_methods import generate_token
+from app.decorator_methods import generate_token, decode_token,get_token
+from app.decorator_methods import validate_content_type,validate_token, logged_in_user
 
 
 app = create_app('DevelopmentEnv')
+
+
 
 
 @app.route('/')
@@ -19,6 +22,8 @@ def index():
 
 
 @app.route('/api/<version>/entries', methods=['POST'])
+@validate_token
+@validate_content_type
 def add_entries(version):
     """
     This endpoint add an entry 
@@ -27,11 +32,13 @@ def add_entries(version):
     """
     if version == 'v1':
         request.get_json(force=True)
+        token = get_token()
+        user_id = decode_token(token)
         if 'name' in request.json and 'desc' in request.json:
             if request.json['name'] and request.json['desc']:
-                diary = DiaryModel(request.json['name'], request.json['desc'],user_id='1')
+                diary = DiaryModel(request.json['name'], request.json['desc'],user_id)
                 new_diary = diary.create_diary()
-                if new_diary is not None:
+                if new_diary is True:
                     return message_to_return(409, 'Diary')
                 return message_to_return(201, 'Diary')
 
@@ -40,6 +47,7 @@ def add_entries(version):
 
 
 @app.route('/api/<version>/entries', methods=['GET'])
+@validate_token
 def get_entries(version):
     """
     This entry gets a all entries
@@ -47,7 +55,10 @@ def get_entries(version):
     :return: 
     """
     if version == 'v1':
-        entries = DiaryModel.get_entries(user_id='1')
+        token = get_token()
+        user_id = decode_token(token)
+        print(user_id)
+        entries = DiaryModel.get_entries(str(user_id))
         if len(entries) ==0:
             return message_to_return(404, 'Diaries')
         return message_to_return(200, entries)
@@ -55,6 +66,7 @@ def get_entries(version):
 
 
 @app.route('/api/<version>/entries/<int:diary_id>', methods=['GET'])
+@validate_token
 def get_entry(version, diary_id):
     """
     This endpoint gets a single entry
@@ -63,7 +75,10 @@ def get_entry(version, diary_id):
     :return: 
     """
     if version == 'v1':
-        entry = DiaryModel.get_entry(diary_id, user_id='1')
+        token = get_token()
+        user_id = decode_token(token)
+        print(user_id)
+        entry = DiaryModel.get_entry(diary_id, user_id)
         if entry is False:
             return message_to_return(404, 'Entry')
         return message_to_return(200, entry)
@@ -72,6 +87,8 @@ def get_entry(version, diary_id):
 
 
 @app.route('/api/<version>/entries/<int:diary_id>', methods=['PUT'])
+@validate_token
+@validate_content_type
 def modify_entry(version, diary_id):
     """
     This endpoint modifies an entry
@@ -81,13 +98,15 @@ def modify_entry(version, diary_id):
     """
     if version == 'v1':
         request.get_json(force=True)
+        token = get_token()
+        user_id = decode_token(token)
         if 'name' in request.json and 'desc' in request.json:
             if request.json['name'] and request.json['desc']:
 
                 edit_entry = DiaryModel.modify_entry(diary_id,
                                                      request.json['name'],
                                                      request.json['desc'],
-                                                     user_id='1')
+                                                     user_id)
                 print(edit_entry)
                 if edit_entry is False:
                     return message_to_return(404, 'Diary or Entry')
@@ -100,6 +119,7 @@ def modify_entry(version, diary_id):
     return invalid_arguments()
 
 @app.route('/api/<version>/auth/signup', methods=['POST'])
+@validate_content_type
 def sign_up_user(version):
     """
     This end point registers a user
@@ -136,6 +156,7 @@ def sign_up_user(version):
 
 
 @app.route('/api/<version>/auth/login', methods=['POST'])
+@validate_content_type
 def login(version):
     request.get_json(force=True)
     if 'email' in request.json and 'password' in request.json:
@@ -146,7 +167,7 @@ def login(version):
             if login_id:
                 return jsonify({
                     'status': "Login successful",
-                    "token": generate_token(login_id).decode()
+                    "token": generate_token(login_id[0]).decode()
 
                 }), 200
             return invalid_user()
