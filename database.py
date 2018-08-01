@@ -5,7 +5,7 @@ from psycopg2 import connect
 class DatabaseConnection():
 
     def __init__(self):
-        self.connection = connect("dbname=mydiary_pro user =admin password=admin host=localhost port=5433")
+        self.connection = connect("dbname=mydiary_pro user =admin password=admin host=localhost port=5432")
         self.connection.autocommit = True
         self.cursor = self.connection.cursor()
 
