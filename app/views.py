@@ -79,19 +79,21 @@ def modify_entry(version, diary_id):
     :param diary_id: 
     :return: 
     """
-    if version == 'v1' and isinstance(diary_id, int):
+    if version == 'v1':
         request.get_json(force=True)
         if 'name' in request.json and 'desc' in request.json:
             if request.json['name'] and request.json['desc']:
 
                 edit_entry = DiaryModel.modify_entry(diary_id,
                                                      request.json['name'],
-                                                     request.json['desc'])
-                if edit_entry is None:
+                                                     request.json['desc'],
+                                                     user_id='1')
+                print(edit_entry)
+                if edit_entry is False:
                     return message_to_return(404, 'Diary or Entry')
-                if edit_entry == 'same name':
+                if edit_entry == 'update with same name':
                     return message_to_return(409, 'name')
-                if edit_entry == 'modified':
+                if edit_entry == 1:
                     return message_to_return(200, 'successfully modified')
 
         return message_to_return(400)
