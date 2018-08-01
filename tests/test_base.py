@@ -1,9 +1,10 @@
 import unittest
 from flask import json
 from config import application_config
-from app.models import DiaryModel
 from app.views import app
 from database import DatabaseConnection
+import datetime
+import jwt
 
 class BaseClass(unittest.TestCase):
     def setUp(self):
@@ -48,7 +49,7 @@ class BaseClass(unittest.TestCase):
         })
         self.new_user = json.dumps({
             'name': 'Kakaire',
-            'email': 'kakazzzzzz@gmail.com',
+            'email': 'kakaemma1@gmail.com',
             'password': '1234567'
         })
         self.new_user_with_ivalid_param = json.dumps({
@@ -65,7 +66,7 @@ class BaseClass(unittest.TestCase):
             'password':'123456'
         })
         self.valid_user = json.dumps({
-            'email': 'kakaemma@gmail.com',
+            'email': 'kakaemma1@gmail.com',
             'password': '1234567'
         })
         self.params = json.dumps({
@@ -99,6 +100,37 @@ class BaseClass(unittest.TestCase):
         self.desc2 = json.dumps({
             'desc': 'Andela Uganda cohort 10 boot camp week one'
         })
+        self.token_user = json.dumps({
+            'name': 'Kakaire',
+            'email': 'token@gmail.com',
+            'password': '1234567'
+        })
+        self.token_login = json.dumps({
+            'email': 'token@gmail.com',
+            'password': '1234567'
+        })
+
+        self.client.post('/api/v1/auth/signup',
+                                    content_type='application/json',
+                                    data=self.token_user)
+        response = self.client.post('/api/v1/auth/login',
+                                    content_type='application/json',
+                                    data=self.token_login)
+        json_data = json.loads(response.data.decode())
+        self.token = json_data['token']
+        self.header = {'Authorization': self.token}
+
+        payload = {
+            'exp': datetime.datetime.utcnow() + datetime.timedelta(days=1),
+            'iat': datetime.datetime.utcnow(),
+            'sub':7
+        }
+        self.invalid_token = jwt.encode(
+            payload,
+            '2018secret',
+            algorithm='HS256'
+        )
+        self.wrong_header = {'Authorization': self.invalid_token}
 
     def tearDown(self):
         db = DatabaseConnection()
