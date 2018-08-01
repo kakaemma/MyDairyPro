@@ -83,7 +83,7 @@ class TestAuth(BaseClass):
         """ Test for user login successful"""
         self.client.post('/api/v1/auth/signup',
                          content_type='application/json',
-                         data=self.user)
+                         data=self.new_user)
         response = self.client.post('/api/v1/auth/login',
                                     content_type='application/json',
                                     data=self.valid_user)
