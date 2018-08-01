@@ -2,34 +2,39 @@ import jwt
 import datetime
 from functools import wraps
 from flask import request, jsonify
-from app.models import UserModel
+from app.models import UserModel,login_id
+
+
+
 logged_in_user = None
 def get_token():
     try:
         token = request.headers.get('Authorization')
         return token
-    except Exception as exc:
-        return exc
+    except Exception as ex:
+        return ex
 
 def select_method_to_return(function, *args, **kwargs):
     try:
-        if len(args) == 0:
+        if len(args) == 0 and len(kwargs)==0:
             return function()
         else:
             return function(*args, **kwargs)
 
     except Exception as exc:
-        return exc
+        return jsonify({
+            "Failed with exception":exc
+        })
 
-def validate_content_type(function):
-    @wraps()
+def validate_content_type(func):
+
+    @wraps(func)
     def decorated_method(*args, **kwargs):
-        if request.header.get('content-type') != 'application/json':
-            response = jsonify({
+        if request.headers.get('content-type') != 'application/json':
+            return jsonify({
                 'Error': 'Content-Type not specified as application/json'
-            }),400
-            return response
-        return select_method_to_return()
+            }), 400
+        return select_method_to_return(func, *args, **kwargs)
     return decorated_method
 
 def generate_token(user_id):
@@ -51,33 +56,33 @@ def decode_token(token):
         return user
 
     except jwt.ExpiredSignature:
-        response = jsonify({'Error': 'Token expired please login again'})
-        response.status_code = 401
-        return response
+        return jsonify({'Error': 'Token expired please login again'}),401
+
 
     except jwt.InvalidTokenError:
-        response = jsonify({'Error':  'Invalid token'})
-        response.status_code = 401
-        return response
+        return jsonify({'Error':  'Invalid token'}),401
 
-def validate_token(function):
-    @wraps()
-    def decorated_method(function, *args, **kwargs):
+def validate_token(func):
+    @wraps(func)
+    def decorated_function(*args, **kwargs):
         token = get_token()
         if token is None:
-            return jsonify({
-                "Error": "There is no token in the header"
-            }),401
+            return jsonify(
+                {
+                    'Error': 'There is no token'
+                }), 401
         try:
             user_id = decode_token(token)
-            search_for_user_with_id = UserModel.get_user_by_id(user_id)
-            if search_for_user_with_id is None:
+            result = UserModel.get_user_by_id(user_id)
+            if result is None:
                 return jsonify({
                     'Error': 'Mismatching or wrong token'
                 }),401
-            logged_in_user = user_id
-        except Exception as exc:
-            return exc
 
-        return select_method_to_return(function, *args, **kwargs)
-    return decorated_method
+        except Exception as ex:
+            return jsonify({
+                'Failed with exception': ex
+            }), 500
+
+        return select_method_to_return(func, *args, **kwargs)
+    return decorated_function
