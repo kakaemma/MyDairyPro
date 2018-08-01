@@ -136,11 +136,11 @@ def sign_up_user(version):
 
         if name and email  and password:
             if not validate_email(email):
-                return message_to_return(422, "Invalid Email address")
+                return message_to_return(400, "Invalid Email address")
             if not len(name) >=3:
-                return message_to_return(422, "Name too short")
+                return message_to_return(400, "Name too short")
             if not len(password) >=6:
-                return message_to_return(422, "password too short. Minimum is 6")
+                return message_to_return(400, "password too short. Minimum is 6")
 
             new_user = UserModel()
             check_user = UserModel.check_if_user_exists_using_email(email)
@@ -150,7 +150,7 @@ def sign_up_user(version):
                 }), 409
             new_user.register_user(name ,email,password)
             return message_to_return(201, request.json['email'])
-        return message_to_return(422, "Missing values")
+        return message_to_return(400, "Missing values")
 
     return invalid_arguments()
 
@@ -197,16 +197,10 @@ def message_to_return(status_code, optional_msg=None):
         }), 409
         return response
 
-    if status_code == 422:
-        response = jsonify({
-            'Error': 'Unprocessable entity',
-            'msg': optional_msg
-        }), 422
-        return response
-
     if status_code == 400:
         response = jsonify({
             'Error': 'Missing or bad parameter submitted',
+            'msg': optional_msg
         }), 400
         return response
 
