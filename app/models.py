@@ -2,18 +2,29 @@ import datetime
 from database import  DatabaseConnection
 
 connection = DatabaseConnection()
-login_id =0
 
-class UserModel(object):
+class UserModel(DatabaseConnection):
 
 
     @staticmethod
     def register_user(name, email, password):
+        """
+        This method registers a user
+        :param name: 
+        :param email: 
+        :param password: 
+        :return: 
+        """
         register_user_query = " INSERT INTO users(name, email, password) VALUES (%s,%s,%s)"
         connection.cursor.execute(register_user_query,(name, email, password))
 
     @staticmethod
     def check_if_user_exists_using_email(email):
+        """
+         This method checks for duplicate user using email
+        :param email: 
+        :return: 
+        """
         query_for_checking_email = "SELECT email FROM users WHERE email=%s"
         connection.cursor.execute(query_for_checking_email, [email])
         row = connection.cursor.fetchone()
@@ -21,6 +32,12 @@ class UserModel(object):
 
     @staticmethod
     def check_if_is_valid_user(email, password):
+        """
+        This method logs in a user
+        :param email: 
+        :param password: 
+        :return: 
+        """
         try:
             query_to_check_for_user = "SELECT user_id FROM users WHERE email=%s AND password=%s "
             connection.cursor.execute(query_to_check_for_user, (email, password))
@@ -28,8 +45,6 @@ class UserModel(object):
             return row
         except Exception as exc:
             print(exc)
-
-
 
 
     @staticmethod
@@ -50,6 +65,8 @@ class DiaryModel(object):
         """
         This constructor initialises diary
         :param name: 
+        :param desc: 
+        :param user_id: 
         """
         self.user_id = user_id
         self.name = name
@@ -60,7 +77,7 @@ class DiaryModel(object):
     def create_diary(self):
         """
         Adds diary entry as an object to list
-        :return: 
+        :return: the diary that has just been added
         """
 
         try:
@@ -71,14 +88,23 @@ class DiaryModel(object):
                 return True
             query_to_add_entry = "INSERT INTO entries(name, description, user_id,date_created,date_modified) VALUES(%s,%s,%s,%s,%s)"
             connection.cursor.execute(query_to_add_entry,(self.name, self.desc, self.user_id, self.date_created, self.date_modified))
+            result=[]
+            result.append({
+                'name': self.name,
+                'Description': self.desc,
+                'Date created': self.date_created,
+                'Date Modified': self.date_created
+            })
+            return result
         except Exception as exc:
             print(exc)
 
     @classmethod
     def get_entries(cls, user_id):
         """
-        This method returns all entries
-        :return: 
+        This method gets all entries
+        :param user_id: 
+        :return: all entries of a given user
         """
         response =[]
         query_to_get_all_entres = 'SELECT * FROM entries WHERE user_id=%s'
@@ -97,13 +123,13 @@ class DiaryModel(object):
         return response
 
 
-
     @staticmethod
     def get_entry(search_id, user_id):
         """
         This method gets a single entry
-        :param diary_id: 
-        :return: 
+        :param search_id: 
+        :param user_id: 
+        :return: single entry and status code 200 
         """
         try:
             query_to_get_single_entry = "SELECT * FROM entries WHERE diary_id=%s AND user_id=%s"
@@ -111,7 +137,7 @@ class DiaryModel(object):
             row = connection.cursor.fetchone()
             if not row:
                 return False
-            response =[]
+            response=[]
             response.append({
                     'id': row[0],
                     'name': row[1],
@@ -131,7 +157,8 @@ class DiaryModel(object):
         :param diary_id: 
         :param name: 
         :param desc: 
-        :return: 
+        :param user_id: 
+        :return: updated entry
         """
         query_to_search_entry = "SELECT * FROM entries WHERE diary_id=%s AND user_id=%s"
         connection.cursor.execute(query_to_search_entry, (diary_id, user_id))
@@ -140,10 +167,8 @@ class DiaryModel(object):
             return False
         if row[1] == name:
             return 'update with same name'
-
-        query_to_update = "UPDATE entries SET name=%s, description=%s WHERE user_id=%s AND diary_id=%s"
-        connection.cursor.execute(query_to_update,(name,desc,user_id,diary_id))
+        date_modified=datetime.datetime.utcnow()
+        query_to_update = "UPDATE entries SET name=%s, description=%s, date_modified=%s WHERE user_id=%s AND diary_id=%s"
+        connection.cursor.execute(query_to_update,(name,desc,date_modified,user_id,diary_id))
         row_updated = connection.cursor.rowcount
         return row_updated
-
-
