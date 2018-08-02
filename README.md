@@ -80,6 +80,8 @@ GET| /api/v1/entries |Retrieves all diary entries
 GET| /api/v1/entries/<diary_id> |Retrieves a single diary entry 
 PUT| /api/v1/entries/<diary_id> |Modifies diary entry 
 
+[![Demo video](https://user-images.githubusercontent.com/7983999/43614225-74517850-96aa-11e8-9c24-229b853876e5.png)](https://www.youtube.com/watch?v=jst0jaaHGhY)
+
 
 
 
