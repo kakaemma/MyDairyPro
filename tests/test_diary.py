@@ -27,6 +27,17 @@ class TestDiary(BaseClass):
         self.assertIn('Diary successfully added', response.data.decode())
         self.assertEqual(response.status_code, 201)
 
+    def test_add_invalid_token(self):
+        """ should test user with invalid token"""
+
+        response = self.client.post('/api/v1/entries',
+                                    content_type='application/json',
+                                    data=self.new_diary,
+                                    headers=self.wrong_header
+                                   )
+        self.assertIn('Mismatching or wrong token', response.data.decode())
+        self.assertEqual(response.status_code, 401)
+
     def test_add_diary_with_wrong_version(self):
         """ Should return invalid parameters"""
         response = self.client.post('/api/v2/entries',
