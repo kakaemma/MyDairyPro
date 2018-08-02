@@ -76,7 +76,7 @@ GET| /api/v1/entries |Retrieves all diary entries
 GET| /api/v1/entries/<diary_id> |Retrieves a single diary entry 
 PUT| /api/v1/entries/<diary_id> |Modifies diary entry 
 
-> The API is hosted live on
-> https://ek-diary.herokuapp.com/
+> The API documentation is at
+> https://mydiary3.docs.apiary.io/
 
 
