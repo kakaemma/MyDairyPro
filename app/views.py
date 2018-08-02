@@ -1,12 +1,13 @@
 from validate_email import validate_email
 from flask import jsonify, request, render_template
-from app.models import DiaryModel,UserModel,login_id
+from app.models import DiaryModel,UserModel
 from app import create_app
 from app.decorator_methods import generate_token, decode_token,get_token
-from app.decorator_methods import validate_content_type,validate_token, logged_in_user
+from app.decorator_methods import validate_content_type,validate_token
 
 
 app = create_app('DevelopmentEnv')
+
 
 
 
@@ -32,15 +33,21 @@ def add_entries(version):
     """
     if version == 'v1':
         request.get_json(force=True)
-        token = get_token()
-        user_id = decode_token(token)
-        if 'name' in request.json and 'desc' in request.json:
-            if request.json['name'] and request.json['desc']:
-                diary = DiaryModel(request.json['name'], request.json['desc'],user_id)
+        token =get_token()
+        user_id =decode_token(token)
+        if 'name' in request.json and 'desc' in request.json :
+            name = request.json['name']
+            desc = request.json['desc']
+            if name and desc and desc:
+
+                diary = DiaryModel(name, desc, user_id)
                 new_diary = diary.create_diary()
                 if new_diary is True:
                     return message_to_return(409, 'Diary')
-                return message_to_return(201, 'Diary')
+                return jsonify({
+                    "Status": "Diary successfully added",
+                    "Entry": new_diary
+                }), 201
 
         return message_to_return(400)
     return invalid_arguments()
@@ -101,7 +108,9 @@ def modify_entry(version, diary_id):
         token = get_token()
         user_id = decode_token(token)
         if 'name' in request.json and 'desc' in request.json:
-            if request.json['name'] and request.json['desc']:
+            name = request.json['name']
+            desc = request.json['desc']
+            if name and desc:
 
                 edit_entry = DiaryModel.modify_entry(diary_id,
                                                      request.json['name'],
@@ -118,6 +127,7 @@ def modify_entry(version, diary_id):
         return message_to_return(400)
     return invalid_arguments()
 
+
 @app.route('/api/<version>/auth/signup', methods=['POST'])
 @validate_content_type
 def sign_up_user(version):
@@ -127,19 +137,20 @@ def sign_up_user(version):
     :return: user added and status code 201 on success
     """
     request.get_json(force=True)
-    if 'name' in request.json and 'email' in \
-            request.json and 'password' in request.json:
+    if 'name' in request.json and type(request.json['name']) is str\
+            and 'email' in request.json and 'password' in request.json\
+            :
 
-        name =request.json['name']
+        name = request.json['name']
         email = request.json['email']
         password = request.json['password']
 
-        if name and email  and password:
+        if name and name.isalpha() and email and password:
             if not validate_email(email):
-                return message_to_return(400, "Invalid Email address")
-            if not len(name) >=3:
+                return invalid_email()
+            if not len(name) >= 3:
                 return message_to_return(400, "Name too short")
-            if not len(password) >=6:
+            if not len(password) >= 6:
                 return message_to_return(400, "password too short. Minimum is 6")
 
             new_user = UserModel()
@@ -148,7 +159,7 @@ def sign_up_user(version):
                 return jsonify({
                     "Conflict": "User already exists"
                 }), 409
-            new_user.register_user(name ,email,password)
+            new_user.register_user(name, email, password)
             return message_to_return(201, request.json['email'])
         return message_to_return(400, "Missing values")
 
@@ -159,7 +170,7 @@ def sign_up_user(version):
 @validate_content_type
 def login(version):
     request.get_json(force=True)
-    if 'email' in request.json and 'password' in request.json:
+    if 'email' in request.json and 'password' in request.json :
         email = request.json['email']
         password = request.json['password']
         if email and password:
@@ -174,6 +185,7 @@ def login(version):
         return message_to_return(400)
     return invalid_arguments()
 
+
 def message_to_return(status_code, optional_msg=None):
     """
     This method returns messages depending oon the status code
@@ -183,7 +195,8 @@ def message_to_return(status_code, optional_msg=None):
     """
     if status_code == 201:
         response = jsonify({
-            'Status': optional_msg + ' successfully added'
+            'Status': optional_msg,
+            'message': ' successfully added'
         }), 201
         return response
     if status_code == 200:
@@ -200,7 +213,6 @@ def message_to_return(status_code, optional_msg=None):
     if status_code == 400:
         response = jsonify({
             'Error': 'Missing or bad parameter submitted',
-            'msg': optional_msg
         }), 400
         return response
 
@@ -211,12 +223,30 @@ def message_to_return(status_code, optional_msg=None):
         }), 404
         return response
 
+
 def invalid_arguments():
     return jsonify({
         'Error': 'Invalid parameters'
     }), 400
 
+
 def invalid_user():
     return jsonify({
         'Error': 'Invalid user'
     }), 401
+
+def invalid_email():
+    return jsonify({
+        'Error': 'Invalid Email address'
+    }), 400
+@app.errorhandler(404)
+def endpoint_not_found(e):
+    return jsonify({
+        "URL-Error":"Please check the format of your address"
+    }), 404
+
+@app.errorhandler(405)
+def endpoint_not_found(e):
+    return jsonify({
+        "Method-Error":"Method not allowed"
+    }), 405
