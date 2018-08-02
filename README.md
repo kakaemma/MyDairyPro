@@ -32,6 +32,18 @@ cd env/Scripts/activate
 ```
 pip install requirements.txt
 ```
+```
+install PostgreSQL
+```
+```
+CREATE DATABASE mydiary_pro
+CREATE USER admin  PASSWORD 'admin';
+GRANT ALL PRIVILEGES ON DATABASE mydiary_pro TO admin;
+
+SET
+
+```
+
 ### Then, run the application:
 ```
 $ python run.py
@@ -58,6 +70,8 @@ These are the endpoints available in My Diary API
 
 HTTP Method | Endpoint | Description| 
 ------------ | ------------- | ------------- 
+POST| /api/v1/auth/signup |Register a user
+POST| /api/v1/auth/login |Login a user 
 POST| /api/v1/entries |Adds a diary entry 
 GET| /api/v1/entries |Retrieves all diary entries 
 GET| /api/v1/entries/<diary_id> |Retrieves a single diary entry 
