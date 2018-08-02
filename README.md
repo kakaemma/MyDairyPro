@@ -40,8 +40,6 @@ CREATE DATABASE mydiary_pro
 CREATE USER admin  PASSWORD 'admin';
 GRANT ALL PRIVILEGES ON DATABASE mydiary_pro TO admin;
 
-SET
-
 ```
 
 ### Then, run the application:
