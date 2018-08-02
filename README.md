@@ -1,7 +1,5 @@
 [![Emmanuel Kakaire](https://img.shields.io/badge/Emmanuel%20Kakaire-MyDiary-green.svg)]()
-[![Coverage Status](https://coveralls.io/repos/github/kakaemma/MyDairyPro/badge.svg?branch=challenge2)](https://coveralls.io/github/kakaemma/MyDairyPro?branch=challenge2)
-[![Build Status](https://travis-ci.org/kakaemma/MyDairyPro.svg?branch=challenge2)](https://travis-ci.org/kakaemma/MyDairyPro)
-[![Code Style](https://img.shields.io/badge/code%20style-pep8-blue.svg)]()
+[![Coverage Status](https://coveralls.io/repos/github/kakaemma/MyDairyPro/badge.svg?branch=challenge3)](https://coveralls.io/github/kakaemma/MyDairyPro?branch=challenge3)[![Build Status](https://travis-ci.org/kakaemma/MyDairyPro.svg?branch=challenge2)](https://travis-ci.org/kakaemma/MyDairyPro)
 [![Maintainability](https://api.codeclimate.com/v1/badges/8bff641ade47dbc52dee/maintainability)](https://codeclimate.com/github/kakaemma/MyDairyPro/maintainability)
 
 # MyDairyPro
