@@ -2,6 +2,7 @@
 [![Coverage Status](https://coveralls.io/repos/github/kakaemma/MyDairyPro/badge.svg?branch=challenge2)](https://coveralls.io/github/kakaemma/MyDairyPro?branch=challenge2)
 [![Build Status](https://travis-ci.org/kakaemma/MyDairyPro.svg?branch=challenge2)](https://travis-ci.org/kakaemma/MyDairyPro)
 [![Code Style](https://img.shields.io/badge/code%20style-pep8-blue.svg)]()
+[![Maintainability](https://api.codeclimate.com/v1/badges/8bff641ade47dbc52dee/maintainability)](https://codeclimate.com/github/kakaemma/MyDairyPro/maintainability)
 
 # MyDairyPro
 MyDiary is an online journal where users can pen down their thoughts and feelings.
@@ -36,7 +37,7 @@ pip install requirements.txt
 install PostgreSQL
 ```
 ```
-CREATE DATABASE mydiary_pro
+CREATE DATABASE mydiary_pro;
 CREATE USER admin  PASSWORD 'admin';
 GRANT ALL PRIVILEGES ON DATABASE mydiary_pro TO admin;
 
