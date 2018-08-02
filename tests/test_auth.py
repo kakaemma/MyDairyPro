@@ -8,7 +8,7 @@ class TestAuth(BaseClass):
         response = self.client.post('/api/v1/auth/signup',
                                     content_type='application/json',
                                     data=self.empty_reg)
-        self.assertIn('Missing values', response.data.decode())
+        self.assertIn('Missing or bad parameter submitted', response.data.decode())
         self.assertEqual(response.status_code, 400)
 
     def test_registration_with_invalid_email(self):
