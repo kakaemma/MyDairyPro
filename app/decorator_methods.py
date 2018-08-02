@@ -2,7 +2,7 @@ import jwt
 import datetime
 from functools import wraps
 from flask import request, jsonify
-from app.models import UserModel,login_id
+from app.models import UserModel
 
 
 
