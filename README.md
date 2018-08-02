@@ -1,5 +1,5 @@
 [![Emmanuel Kakaire](https://img.shields.io/badge/Emmanuel%20Kakaire-MyDiary-green.svg)]()
-[![Coverage Status](https://coveralls.io/repos/github/kakaemma/MyDairyPro/badge.svg?branch=challenge3)](https://coveralls.io/github/kakaemma/MyDairyPro?branch=challenge3)[![Build Status](https://travis-ci.org/kakaemma/MyDairyPro.svg?branch=challenge2)](https://travis-ci.org/kakaemma/MyDairyPro)
+[![Coverage Status](https://coveralls.io/repos/github/kakaemma/MyDairyPro/badge.svg?branch=challenge3)](https://coveralls.io/github/kakaemma/MyDairyPro?branch=challenge3)[![Build Status](https://travis-ci.org/kakaemma/MyDairyPro.svg?branch=challenge2)](https://travis-ci.org/kakaemma/MyDairyPro) 
 [![Maintainability](https://api.codeclimate.com/v1/badges/8bff641ade47dbc52dee/maintainability)](https://codeclimate.com/github/kakaemma/MyDairyPro/maintainability)
 
 # MyDairyPro
@@ -7,9 +7,10 @@ MyDiary is an online journal where users can pen down their thoughts and feeling
 # Getting started
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
 
-> The API documentation is at:
-```https://mydiary3.docs.apiary.io/
-```
+> The API documentation is at;
+
+> https://mydiary3.docs.apiary.io/
+
 
 # Requirements
 `Python 3+, python-pip, virtualenv`
