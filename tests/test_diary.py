@@ -10,9 +10,11 @@ class TestDiary(BaseClass):
                                     data=self.empty_diary,
                                     headers=self.header
                                     )
-        self.assertIn('Missing or bad parameter submitted',
+        self.assertIn('Missing or bad parameter',
                          response.data.decode())
         self.assertEqual(response.status_code, 400)
+
+
 
     def test_add_diary_successfully(self):
         """ should test adding entry successfully"""
@@ -37,10 +39,6 @@ class TestDiary(BaseClass):
 
     def test_add_diary_with_existing_name(self):
         """ Should return diary already exists"""
-        self.client.post('/api/v1/auth/signup',
-                         content_type='application/json',
-                         data=self.new_user,
-                         headers=self.header)
         self.client.post('/api/v1/entries',
                                     content_type='application/json',
                                     data=self.new_diary,
@@ -63,10 +61,7 @@ class TestDiary(BaseClass):
 
     def test_get_diaries_successfully(self):
         """ Should return my diary entries"""
-        self.client.post('/api/v1/auth/signup',
-                         content_type='application/json',
-                         data=self.new_user,
-                         headers=self.header)
+
         self.client.post('/api/v1/entries',
                          content_type='application/json',
                          data=self.new_diary,
@@ -75,6 +70,17 @@ class TestDiary(BaseClass):
         response = self.client.get('/api/v1/entries', headers=self.header)
         self.assertIn('Diary entries', response.data.decode())
         self.assertEqual(response.status_code, 200)
+
+    def test_invalid_method(self):
+        """ Should return Method not allowed"""
+
+        response = self.client.post('/api/v1/entries/5',
+                                    content_type='application/json',
+                                    data=self.new_diary,
+                                    headers=self.header
+                                   )
+        self.assertIn('Method not allowed', response.data.decode())
+        self.assertEqual(response.status_code, 405)
 
     def test_get_diaries_with_wrong_version(self):
         """ Test get diary with wrong version should
@@ -226,3 +232,13 @@ class TestDiary(BaseClass):
                                    )
         self.assertIn('successfully modified', response.data.decode())
         self.assertEqual(response.status_code, 200)
+
+    def test_invalid_url(self):
+        """ Test registration with missing values"""
+        response = self.client.post('/api/v1/autcch/signup',
+                                    content_type='application/json',
+                                    data=self.empty_reg)
+        self.assertIn('Please check the format of your address', response.data.decode())
+        self.assertEqual(response.status_code, 404)
+
+
