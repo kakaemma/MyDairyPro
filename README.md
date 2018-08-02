@@ -7,6 +7,10 @@ MyDiary is an online journal where users can pen down their thoughts and feeling
 # Getting started
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
 
+> The API documentation is at:
+```https://mydiary3.docs.apiary.io/
+```
+
 # Requirements
 `Python 3+, python-pip, virtualenv`
 
@@ -74,7 +78,6 @@ GET| /api/v1/entries |Retrieves all diary entries
 GET| /api/v1/entries/<diary_id> |Retrieves a single diary entry 
 PUT| /api/v1/entries/<diary_id> |Modifies diary entry 
 
-> The API documentation is at
-> https://mydiary3.docs.apiary.io/
+
 
 
