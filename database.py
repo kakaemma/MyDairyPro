@@ -13,22 +13,18 @@ class DatabaseConnection():
         :param host: 
         :param port: 
         """
-        # if app_environment == 'TESTING':
-        #     self.connection = connect("dbname=test_db user =admin password=admin host=localhost port=5433")
-        #     self.connection.autocommit = True
-        #     self.cursor = self.connection.cursor()
-        #     #-------------------------------------------
+
         #     #When on travis
 
-        # self.connection = connect("dbname=mydiary_pro user =postgres password='' host=localhost port=5432")
-        # self.connection.autocommit = True
-        # self.cursor = self.connection.cursor()
-
-            #----------------------------------------------
-
-        self.connection = connect("dbname=mydiary_pro user =admin password=admin host=localhost port=5433")
+        self.connection = connect("dbname=mydiary_pro user =postgres password='' host=localhost port=5432")
         self.connection.autocommit = True
         self.cursor = self.connection.cursor()
+
+            #----------------------------------------------
+        #
+        # self.connection = connect("dbname=mydiary_pro user =admin password=admin host=localhost port=5433")
+        # self.connection.autocommit = True
+        # self.cursor = self.connection.cursor()
 
 
 
