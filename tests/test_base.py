@@ -109,6 +109,10 @@ class BaseClass(unittest.TestCase):
             'email': 'token@gmail.com',
             'password': '1234567'
         })
+        self.number_diary = json.dumps({
+            'email': 1234,
+            'password': 1234
+        })
 
         self.client.post('/api/v1/auth/signup',
                                     content_type='application/json',
