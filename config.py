@@ -12,6 +12,7 @@ class DevelopmentEnvironment(MainConfiguration):
     DEBUG = True
 
 
+
 class TestingEnvironment(MainConfiguration):
     """ Configurations for Testing environment"""
     DEBUG = True
