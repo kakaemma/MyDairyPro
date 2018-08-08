@@ -7,24 +7,19 @@ class DatabaseConnection():
     def __init__(self):
         """
         This constructor creates a connection to the database
-        :param dbname: 
-        :param user: 
-        :param password: 
-        :param host: 
-        :param port: 
         """
 
         #     #When on travis
-
-        self.connection = connect("dbname=mydiary_pro user =postgres password='' host=localhost port=5432")
-        self.connection.autocommit = True
-        self.cursor = self.connection.cursor()
-
-            #----------------------------------------------
         #
-        # self.connection = connect("dbname=mydiary_pro user =admin password=admin host=localhost port=5433")
+        # self.connection = connect("dbname=mydiary_pro user =postgres password='' host=localhost port=5432")
         # self.connection.autocommit = True
         # self.cursor = self.connection.cursor()
+
+            #----------------------------------------------
+
+        self.connection = connect("dbname=mydiary_pro user =admin password=admin host=localhost port=5433")
+        self.connection.autocommit = True
+        self.cursor = self.connection.cursor()
 
 
 
