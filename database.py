@@ -11,20 +11,26 @@ class DatabaseConnection():
 
         #     #When on travis
 
-        self.connection = connect("dbname=mydiary_pro user =postgres password='' host=localhost port=5432")
+        # self.connection = connect("dbname=mydiary_pro user =postgres password='' host=localhost port=5432")
+        # self.connection.autocommit = True
+        # self.cursor = self.connection.cursor()
+
+            #----------------------------------------------
+
+
+        #     #When on heroku
+
+        self.connection = connect("dbname=dfnomosplgge6f "
+                                  "user =stfdetvvfeyjox "
+                                  "password=91a11a6231f8c068e0ddb3aa1db4a61bfe4eee3d8db2538f4708b1755eb317d8"
+
+                                  " host=ec2-54-243-61-173.compute-1.amazonaws.com"
+
+                                  "port=5432")
         self.connection.autocommit = True
         self.cursor = self.connection.cursor()
 
             #----------------------------------------------
-
-        # self.connection = connect("dbname=mydiary_pro user =admin password=admin host=localhost port=5433")
-        # self.connection.autocommit = True
-        # self.cursor = self.connection.cursor()
-
-
-
-
-
 
     def create_tables(self):
         """ This method creates all tables"""
