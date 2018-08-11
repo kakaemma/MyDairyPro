@@ -19,7 +19,7 @@ def index():
     :return: 
     """
 
-    return "<h2>Welcome to My Diary</h2>"
+    return render_template('index.html')
 
 
 @app.route('/api/<version>/entries', methods=['POST'])
