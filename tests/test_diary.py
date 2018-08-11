@@ -3,6 +3,10 @@ from tests.test_base import BaseClass
 
 class TestDiary(BaseClass):
 
+    def test_index_route(self):
+        response = self.client.get('/')
+        self.assertIn('Welcome to My Diary', response.data.decode())
+
     def test_add_diary_without_name(self):
         """ Should return missing or bad parameters"""
         response = self.client.post('/api/v1/entries',
