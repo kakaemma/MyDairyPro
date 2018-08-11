@@ -20,13 +20,7 @@ class DatabaseConnection():
 
         #     #When on heroku
 
-        self.connection = connect(database="dfnomosplgge6f ",
-                                  user="stfdetvvfeyjox ",
-                                  password="91a11a6231f8c068e0ddb3aa1db4a61bfe4eee3d8db2538f4708b1755eb317d8",
-
-                                  host="ec2-54-243-61-173.compute-1.amazonaws.com",
-
-                                  port="5432")
+        self.connection = connect("postgres://stfdetvvfeyjox:91a11a6231f8c068e0ddb3aa1db4a61bfe4eee3d8db2538f4708b1755eb317d8@ec2-54-243-61-173.compute-1.amazonaws.com:5432/dfnomosplgge6f")
         self.connection.autocommit = True
         self.cursor = self.connection.cursor()
 
