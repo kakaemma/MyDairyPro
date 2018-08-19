@@ -3,8 +3,36 @@
     <head>
         <title>My Diary - Register</title>
         <link rel="stylesheet" type="text/css" href="css/styles.css" />
+        <script type="javascript" src="js/app.js"></script>
+        
     </head>
+    <script>
+        function registerUser(){
+            name = document.getElementById('fname').value
+            email = document.getElementById('email').value
+            password = document.getElementById('password').value
+            url ='https://diary-2018.herokuapp.com/api/v1/auth/signup'
+            let data ={
+                name:name,
+                email:email,
+                password:password
+            }
+
+            fetch(url, {
+                method: 'POST',
+                body:JSON.stringify(data),
+                headers: new headers({
+                    'Content-Type':'application/json'
+                })
+            }).then(function(){
+                alert (Response)
+            })
+
+
+
+}
     
+    </script>
     <body class="coloredBg">
         <div class="pageWrapper">
             <div class="container">
@@ -25,21 +53,21 @@
                         </div>
                         <div class="regSidebar">
                             <div class="error errorMsg" style="display: none"></div>
-                            <form class="registerForm" action="">
+                            <form class="registerForm" action="" onsubmit="return registerUser()">
                                 <div class="regfieldHolder">
-                                    <input type="text" name="fname" class="formField" id="regformField" required="required" placeholder="Your first name"/>
+                                    <input type="text" name="fname" class="formField" id="fname" required="required" placeholder="Your first name"/>
                                 </div>
                                 <div class="regfieldHolder">
                                     <input type="text" name="lname" class="formField" id="regformField" required placeholder="Your last name" />
                                 </div>
                                 <div class="regfieldHolder">
-                                    <input type="email" required="required" placeholder="Email address" class="formField" id="regformField"/>
+                                    <input type="email" required="required" placeholder="Email address" class="formField" id="email"/>
                                 </div>
                                 <div class="regfieldHolder">
-                                    <input type="password" name="pass" required="required" class="formField" id="regformField" placeholder="Password">
+                                    <input type="password" name="pass" required="required" class="formField" id="password" placeholder="Password">
                                 </div>
                                 <div class="regfieldHolder">
-                                    <input type="password" name="repass" required="required" class="formField" id="regformField" placeholder="Confirm password " />
+                                    <input type="password" name="repass" required="required" class="formField" id="confirmPass" placeholder="Confirm password " />
                                 </div>
 
                                 <button class="button buttonPupple" id="regbtn" type="submit" value="Sign in">Sign up</button>
