@@ -26,10 +26,14 @@
                   }
                 )
 
-            }).then(function(response){
-                return response.json()                
-            }).then(function(text){
-                console.log(text);
+            }).then((response) =>{
+                status_code = response.status_code 
+                return result.json()   
+
+            }).then((data) =>{
+                if(status_code ==400){
+                    alert(data['Error'])
+                }
             });
     }
     
