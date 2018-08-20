@@ -177,6 +177,11 @@ form .fieldIcon::after {
 .registerContent .registerPanel, .registerContent .regSidebar {
     float: left;
 }
+.registerForm .error{
+    padding-left:10px;
+    padding-bottom:10px;
+    color:#CCFFCC;
+}
 .smallNotes h3 {
     line-height: 1.4;
     margin-bottom: 15px;
