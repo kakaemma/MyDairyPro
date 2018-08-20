@@ -8,9 +8,10 @@
     </head>
     <script>
         function registerUser(){
-            users_name = document.getElementById('fname').value;;
-            user_email = document.getElementById('email').value
+            users_name = document.getElementById('fname').value;
+            user_email = document.getElementById('email').value;
             user_password = document.getElementById('password').value;
+            alert(user_password)
 
 
          fetch('https://diary-2018.herokuapp.com/api/v1/auth/signup', {
@@ -29,11 +30,14 @@
             }).then((response) =>{
                 status_code = response.status_code 
                 return result.json()   
+                alert('kaka')
 
             }).then((data) =>{
                 if(status_code ==400){
-                    alert(data['Error'])
+                    alert(data['Error']);
                 }
+                alert('created')
+  
             });
     }
     
