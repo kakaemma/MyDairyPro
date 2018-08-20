@@ -8,29 +8,30 @@
     </head>
     <script>
         function registerUser(){
-            users_name = document.getElementById('fname').value
+            users_name = document.getElementById('fname').value;;
             user_email = document.getElementById('email').value
-            user_password = document.getElementById('password').value
-            url ='https://diary-2018.herokuapp.com/api/v1/auth/signup'
-            let data ={
-                name:users_name,
-                email:user_email,
-                password:user_password
-            }
+            user_password = document.getElementById('password').value;
 
-            fetch(url, {
+
+         fetch('https://diary-2018.herokuapp.com/api/v1/auth/signup', {
                 method: 'POST',
-                body:JSON.stringify(data),
-                headers: new headers({
+                headers: {
                     'Content-Type':'application/json'
-                })
+                },                
+                body:JSON.stringify(
+                  {
+                    name:users_name,
+                    email:user_email,
+                    password:user_password
+                  }
+                )
+
             }).then(function(response){
-                return response
-            })
-
-
-
-}
+                return response.json()                
+            }).then(function(text){
+                console.log(text);
+            });
+    }
     
     </script>
     <body class="coloredBg">
