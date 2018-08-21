@@ -22,11 +22,12 @@ function register(event){
 
 
     }).then((response) => {
-        response.json()
+        status_code = response.status
+        // return response.json()
     }).catch(error =>
-        alert("please check your internet connection")
+        alert(error)
     ).then((response) => {
-        if(response.status_code !=201){
+        if(response.status !=201){
             document.getElementById("error-msg").innerHTML = response['Error']
         }
         else{
