@@ -6,13 +6,14 @@ function register(event){
     last_name = document.getElementById('lname').value;
     user_email = document.getElementById('email').value
     user_password = document.getElementById('password');
+    alert(user_password)
 
     fetch('https://diary-2018.herokuapp.com/api/v1/auth/signup',{
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
         },
-        mode:'no-cors',
+        mode:'cors',
         body:JSON.stringify({
             name: first_name,
             email: user_email,
@@ -23,11 +24,12 @@ function register(event){
 
     }).then((response) => {
         status_code = response.status
-        // return response.json()
+        return response.json()
     }).catch(error =>
         alert(error)
     ).then((response) => {
-        if(response.status !=201){
+        if(status_code !=201){
+            alert(response['Error'])
             document.getElementById("error-msg").innerHTML = response['Error']
         }
         else{
