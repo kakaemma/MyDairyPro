@@ -1,4 +1,5 @@
 from validate_email import validate_email
+from flask_cors import CORS
 from flask import jsonify, request, render_template
 from app.models import DiaryModel,UserModel
 from app import create_app
@@ -7,6 +8,7 @@ from app.decorator_methods import validate_content_type,validate_token
 
 
 app = create_app('DevelopmentEnv')
+cors = CORS(app)
 
 
 
