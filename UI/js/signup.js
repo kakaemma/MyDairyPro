@@ -7,15 +7,12 @@ function register(event){
     user_email = document.getElementById('email').value
     user_password = document.getElementById('password');
 
-    uri = 'https://diary-2018.herokuapp.com/api/v1/auth/signup';
-    request_headers = new Headers(
-        {
-            'Content-Type': 'application/json'
-        }
-    );
-    fetch(uri,{
+    fetch('https://diary-2018.herokuapp.com/api/v1/auth/signup',{
         method: 'POST',
-        headers:request_headers,
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        mode:'no-cors',
         body:JSON.stringify({
             name: first_name,
             email: user_email,
@@ -25,16 +22,19 @@ function register(event){
 
 
     }).then((response) => {
-        status_code = response.status_code
-        return response.json()   
-    }).then((data) => {
-        if(status_code !=201){
-            document.getElementById("error-msg").innerHTML = data['Error']
+        response.json()
+    }).catch(error =>
+        alert("please check your internet connection")
+    ).then((response) => {
+        if(response.status_code !=201){
+            document.getElementById("error-msg").innerHTML = response['Error']
         }
         else{
             window.location = './index.html'
             alert('Account created please login')
         }
-    })
+    }).catch(error =>
+        alert("Failed to fetch request")
+    )
 
 }
