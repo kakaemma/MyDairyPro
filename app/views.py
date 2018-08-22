@@ -159,7 +159,7 @@ def sign_up_user(version):
             check_user = UserModel.check_if_user_exists_using_email(email)
             if check_user:
                 return jsonify({
-                    "Conflict": "User already exists"
+                    "Error": "User already exists"
                 }), 409
             new_user.register_user(name, email, password)
             return message_to_return(201, request.json['email'])
