@@ -5,7 +5,7 @@ function register(event){
     first_name = document.getElementById('fname').value;
     last_name = document.getElementById('lname').value;
     user_email = document.getElementById('email').value
-    user_password = document.getElementById('password');
+    user_password = document.getElementById('password').value;
     alert(user_password)
 
     fetch('https://diary-2018.herokuapp.com/api/v1/auth/signup',{
