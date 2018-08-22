@@ -33,7 +33,7 @@ function register(event){
             document.getElementById("error-msg").innerHTML = response['Error']
         }
         else{
-            window.location = './index.html'
+            window.location = '../index.html'
             alert('Account created please login')
         }
     }).catch(error =>
