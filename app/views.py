@@ -208,7 +208,7 @@ def message_to_return(status_code, optional_msg=None):
         return response
     if status_code == 409:
         response = jsonify({
-            'Conflict': optional_msg + ' already exists'
+            'Error': optional_msg + ' already exists'
         }), 409
         return response
 
