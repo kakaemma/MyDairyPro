@@ -15,6 +15,15 @@ function login(event) {
             'Content-Type': 'application/json'
         },
         mode:'cors',
+        body:JSON.stringify({
+            email:user_email,
+            password:user_password
+        })
+
+    }).then((response) =>{
+        status_code = response.status
+        return response.json()
+    }).then((resp)=>{
         
     })
     
