@@ -74,7 +74,7 @@ class TestAuth(BaseClass):
         response = self.client.post('/api/v1/auth/login',
                                     content_type='application/json',
                                     data=self.invalid_user)
-        self.assertIn('Invalid user',
+        self.assertIn('Invalid email or password',
                       response.data.decode())
         self.assertEqual(response.status_code, 401)
 
