@@ -234,7 +234,7 @@ def invalid_arguments():
 
 def invalid_user():
     return jsonify({
-        'Error': 'Invalid user'
+        'Error': 'Invalid email or password'
     }), 401
 
 def invalid_email():
