@@ -24,6 +24,12 @@ function login(event) {
         status_code = response.status
         return response.json()
     }).then((resp)=>{
+        if(status_code !=200){
+            document.getElementById("error-msg").innerHTML= resp['Error']
+        }
+        else{
+            alert(resp['status'])
+        }
 
     })
     
