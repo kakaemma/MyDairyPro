@@ -244,11 +244,11 @@ def invalid_email():
 @app.errorhandler(404)
 def endpoint_not_found(e):
     return jsonify({
-        "URL-Error":"Please check the format of your address"
+        "Error":"Please check the format of your address"
     }), 404
 
 @app.errorhandler(405)
 def endpoint_not_found(e):
     return jsonify({
-        "Method-Error":"Method not allowed"
+        "Error":"Method not allowed"
     }), 405
