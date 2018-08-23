@@ -23,14 +23,16 @@ function login(event) {
     }).then((response) =>{
         status_code = response.status
         return response.json()
-    }).then((resp)=>{
+    }).then((response)=>{
         if(status_code !=200){
-            document.getElementById("error-msg").innerHTML= resp['Error']
+            document.getElementById("error-msg").innerHTML= response['Error']
         }
         else{
-            alert(resp['status'])
+            alert(response['status'])
         }
 
-    })
+    }).catch(error=>{
+        alert(error)
+    });
     
 }

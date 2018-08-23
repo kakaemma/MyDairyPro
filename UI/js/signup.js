@@ -28,7 +28,6 @@ function register(event){
         alert(error)
     ).then((response) => {
         if(status_code !=201){
-            alert(response['Error'])
             document.getElementById("error-msg").innerHTML = response['Error']
         }
         else{
