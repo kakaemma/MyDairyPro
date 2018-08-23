@@ -28,7 +28,9 @@ function login(event) {
             document.getElementById("error-msg").innerHTML= response['Error']
         }
         else{
-            alert(response['status'])
+            window.localStorage.setItem('token', response['token'])
+            window.location = 'UI/dashboard.html'
+            alert("Logged in successfully")
         }
 
     }).catch(error=>{
