@@ -24,12 +24,20 @@ function add_entry(event) {
         status_code =response.status;
         return response.json();
     }).then((response)=>{
-        if(status_code != 201){
-            alert(response['Error'])
+        if(status_code !== 201){
+            if(response['Error']=='Mismatching or wrong token'){
+
+                alert('Your session has expired. please login again');
+                window.location='../index.html'
+            }
+            else {
+                alert(response['Error']);
+            }
         }
+
         else {
-            window.location= "dashboard.html"
-            alert("Diary successfully added")
+            window.location= "dashboard.html";
+            alert("Diary successfully added");
         }
     })
 
