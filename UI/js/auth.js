@@ -6,7 +6,7 @@
 
 function logged_in() {
     token = localStorage.getItem('token')
-    if(token ==''){
+    if(token =='' || token == null){
         window.location="../index.html"
     }
 }
