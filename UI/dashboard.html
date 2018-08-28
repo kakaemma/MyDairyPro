@@ -5,7 +5,7 @@
         <link rel="stylesheet" type="text/css" href="css/styles.css" />
         <script src="js/modal.js" type="javascript"></script>
     </head>
-    <body style="background-color: #f6f7f8;">
+    <body style="background-color: #f6f7f8;" onload="return logged_in()">
         <div class="navigation" id="header">
             <div class="main_container">
                 <div class="navigationbar">
@@ -16,7 +16,7 @@
                         <ul class="list_nav">
                             <li><a href="dashboard.html">Diary entry</a></li>
                             <li><a href="profile.html">User Profile</a></li>
-                            <li><a href="index.html">Sign out</a></li>
+                            <li><a href="" onclick= "logout()">Sign out</a></li>
                         </ul>
                     </div>
 
@@ -86,14 +86,14 @@
                     <h2>Add Diary</h2>
                 </div>
                 <div class="modal_body" style="padding-top: 20px;">
-                    <form action="" name="addentry" method="POST">
+                    <form action="" name="addentry" id="add-entry-form" method="POST">
                         <div class="form-group">
-                            <input type="text" name="name" class="formField" placeholder="New diary entry " />
+                            <input type="text" name="name" id="add_entry_name" class="formField" placeholder="Diary name " />
                         </div>
                         <div class="form-group">
-                            <input type="text" name="desc" class="formField" placeholder="New diary entry " />
+                            <input type="text" name="desc" id="add_entry_desc" class="formField" placeholder="Diary description " />
                         </div>
-                        <button class="button button_dash" name="entry_btn">Add</button>
+                        <button class="button button_dash" type="submit" name="entry_btn">Add</button>
 
                     </form>
                 </div>
@@ -107,9 +107,9 @@
                         <h2>Update Diary</h2>
                     </div>
                     <div class="modal_body" style="padding-top: 20px;">
-                        <form action="" name="editdentry" method="POST">
+                        <form action="" name="editdentry" id="modify-entry" method="POST">
                             <div class="form-group">
-                                <input type="text" name="name" class="formField" placeholder="Diary name " />
+                                <input type="text" name="name" class="formField" placeholder="New Diary name " />
                             </div>
                             <div class="form-group">
                                 <input type="text" name="desc" class="formField" placeholder="Diary description " />
@@ -120,6 +120,7 @@
                     </div>
                 </div>
             </div>
-
+        <script type="text/javascript" src="js/add_entries.js"></script>
+        <script type="text/javascript" src="js/auth.js"></script>
     </body>
 </html>
