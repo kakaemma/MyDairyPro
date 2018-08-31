@@ -15,10 +15,19 @@
     if(status_code == 404){
         document.getElementById('diary-display').innerHTML = "You have no entries added"
     }
+    if(status_code == 401){
+        alert('Your session has expired. please login again');
+        window.location='../index.html'
+    }
     else{
-        alert('entries')
+        display_results='<tr><td>Diary name</td><td>Description</td></tr>';
+        response.forEach(entry=>{
+            display_results += "<tr><td><h5>"+entry.name+"</h5></td><td><h5>"+ entry.Description +"</h5></td></tr>";
 
-        console.log(response)
+        });
+        document.getElementById('diary-display').innerHTML =display_results;
+
+        console.log(response);
     }
 })
 
