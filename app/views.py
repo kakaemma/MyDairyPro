@@ -70,7 +70,7 @@ def get_entries(version):
         entries = DiaryModel.get_entries(str(user_id))
         if entries is False:
             return message_to_return(404, 'Diaries')
-        return message_to_return(200, entries)
+        return entries, 200
     return invalid_arguments()
 
 
