@@ -42,46 +42,40 @@ function edit_modal (entry_id) {
 
     document.getElementById('editModal').style.display = "block";
 
+    document.getElementById('modify-entry').addEventListener('submit', modify);
+    function modify(event){
+        event.preventDefault();
     alert(entry_id)
-document.getElementById('modify-entry').addEventListener('submit', modify);
-function modify(event){
-    event.preventDefault();
-alert(entry_id)
-    new_name = document.getElementById('new_name').value;
-    new_description = document.getElementById('new_desc').value;
+        new_name = document.getElementById('new_name').value;
+        new_description = document.getElementById('new_desc').value;
 
-    fetch('https://diary-2018.herokuapp.com/api/v1/entries/'+parseInt(entry_id),{
-        method:'PUT',
-        headers:{
-            'Content-Type': 'application/json',
-            'Authorization': localStorage.getItem('token')
-        },
-        body:JSON.stringify({
-            name:new_name,
-            desc:new_description
-        })
-    }).then(response=>{
-            status_code = response.status
-            return response.json()
+        fetch('https://diary-2018.herokuapp.com/api/v1/entries/'+parseInt(entry_id),{
+            method:'PUT',
+            headers:{
+                'Content-Type': 'application/json',
+                'Authorization': localStorage.getItem('token')
+            },
+            body:JSON.stringify({
+                name:new_name,
+                desc:new_description
+            })
         }).then(response=>{
-            if(status_code !=200){
-                alert(response['Error'])
-            }
-            if(status_code == 401){
-                alert('Your session has expired. please login again');
-                window.location='../index.html'
-            }
-            if(status_code == 200){
-                alert('Entry successfully modified')
-                window.location='dashboard.html'
-            }
-        })
+                status_code = response.status
+                return response.json()
+            }).then(response=>{
+                if(status_code !=200){
+                    document.getElementById('edit-error-msg').innerHTML= response['Error']
+                }
+                if(status_code == 401){
+                    alert('Your session has expired. please login again');
+                    window.location='../index.html'
+                }
+                if(status_code == 200){
+                    alert('Entry successfully modified')
+                    window.location='dashboard.html'
+                }
+            })
 
-}
-
-}
-
-function modify_entry(entry_id) {
-
+    }
 
 }
