@@ -3,7 +3,6 @@
     <head>
         <title>My Diary - Welcome</title>
         <link rel="stylesheet" type="text/css" href="css/styles.css" />
-        <script src="js/modal.js" type="javascript"></script>
     </head>
     <body style="background-color: #f6f7f8;" onload="return logged_in()">
         <div class="navigation" id="header">
@@ -16,7 +15,7 @@
                         <ul class="list_nav">
                             <li><a href="dashboard.html">Diary entry</a></li>
                             <li><a href="profile.html">User Profile</a></li>
-                            <li><a href="" onclick= "logout()">Sign out</a></li>
+                            <li><a href="" onclick= "return logout()">Sign out</a></li>
                         </ul>
                     </div>
 
@@ -26,13 +25,13 @@
                         <div class="holder">
                             <div class="diaries">
                                 <div class="button_area">
-                                    <a href="#addentbry" class="button button_dash" id="modalbtn" onclick="document.getElementById('myModal').style.display='block'">
+                                    <a href="#" class="button button_dash" id="modalbtn" onclick="document.getElementById('myModal').style.display='block'">
                                         Add Entry
                                     </a>
                                 </div>
 
                                 <div class="diaries" >
-                                    <table id="diary-display" style="height: auto">
+                                    <table id="diary-display" class="main_table" style="height: auto">
 
                                     </table>
 
@@ -65,26 +64,9 @@
             </div>
         </div>
 
-        <div class="modal" id="editModal">
-                <div class="modal_content">
-                    <div class="modal_header">
-                        <span class="close"><a href="">&times;</a></span>
-                        <h2>Update Diary</h2>
-                    </div>
-                    <div class="modal_body" style="padding-top: 20px;">
-                        <form action="" name="editdentry" id="modify-entry" method="POST">
-                            <div class="form-group">
-                                <input type="text" name="name" class="formField" placeholder="New Diary name " />
-                            </div>
-                            <div class="form-group">
-                                <input type="text" name="desc" class="formField" placeholder="Diary description " />
-                            </div>
-                            <button class="button button_dash" name="entry_btn">Update</button>
-    
-                        </form>
-                    </div>
-                </div>
-            </div>
+
+        <script src="js/modal.js" type="javascript"></script>
+        <script src="js/edit_entry.js" type="javascript"></script>
         <script type="text/javascript" src="js/add_entries.js"></script>
         <script type="text/javascript" src="js/auth.js"></script>
         <script type="text/javascript" src="js/get_entries.js"></script>
