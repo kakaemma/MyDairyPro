@@ -62,3 +62,7 @@ function pop_edit_modal () {
     document.getElementById('editModal').style.display = "block";
 
 }
+
+function modify_entry(entry_id) {
+    alert(entry_id)
+}
