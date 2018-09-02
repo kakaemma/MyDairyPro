@@ -188,6 +188,11 @@ form .fieldIcon::after {
     padding-bottom:10px;
     color:#ff0000;
 }
+.error{
+    padding-left:10px;
+    padding-bottom:10px;
+    color:#ff0000;
+}
 .smallNotes h3 {
     line-height: 1.4;
     margin-bottom: 15px;
