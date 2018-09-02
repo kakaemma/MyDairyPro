@@ -69,10 +69,13 @@
                     <div class="modal_header">
                         <span class="close"><a href="">&times;</a></span>
                         <h2>Update Diary</h2>
+
                     </div>
                     <div class="modal_body" style="padding-top: 20px;">
                         <form action="" name="editentry" id="modify-entry" method="PUT">
-                            <div class="form-group" style="margin-bottom: 20px">
+                            <div class="error errorMsg" id="edit-error-msg" style=""></div>
+
+                            <div class="form-group" style="margin-bottom: 20px; margin-top: 8px;">
                                 <input type="text" name="new_name" id="new_name" class="formField" placeholder="New Diary name " />
                             </div>
                             <div class="form-group">
